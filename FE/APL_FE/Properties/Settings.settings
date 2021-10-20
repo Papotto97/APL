@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="APL_FE.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MONGO_URI" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb://localhost:27017/APL?authSource=admin&amp;serverSelectionTimeoutMS=5000&amp;connectTimeoutMS=10000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
