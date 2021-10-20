@@ -1,4 +1,5 @@
-﻿using APL_FE.Models;
+﻿using APL_FE.DAO;
+using APL_FE.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,9 +16,11 @@ namespace APL_FE
 {
     public partial class Welcome : Form
     {
+        private UserDAO _userDAO;
         public Welcome()
         {
             InitializeComponent();
+            _userDAO = new UserDAO();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -31,29 +34,19 @@ namespace APL_FE
             string loginUser = usernameField.Text;
             string passwordUser = passwordField.Text;
 
-            IMongoClient client = new MongoClient(Properties.Settings.Default.MONGO_URI);
-            IMongoDatabase database = client.GetDatabase("APL");
-            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("Users");
+            var user =_userDAO.GetUserByUsernameAndPassword(loginUser, passwordUser);
 
-            BsonDocument filter = new BsonDocument();
-            filter.Add("username", loginUser).Add("password", passwordUser);
-
-            try
+            if (user != null)
             {
-                var bsonElements = collection.Find(filter).Single();
-                Console.WriteLine(bsonElements);
-
-                UserInfo.loggedUsername = loginUser;
+                UserInfo.loggedUsername = user.Username;
 
                 Dashboard loginForm = new Dashboard();
                 this.Hide();
                 loginForm.Show();
                 MessageBox.Show(String.Format("Welcome {0}", loginUser));
             }
-            catch (Exception)
-            {
+            else
                 MessageBox.Show("Retry please");
-            }
 
         }
 
