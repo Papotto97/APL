@@ -1,0 +1,70 @@
+{
+	"SearchType": "Movie",
+	"Expression": "Titanic",
+	"Results": [
+		{
+			"Id": "tt0120338",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titanic",
+			"Description": "(1997)"
+		},
+		{
+			"Id": "tt0051994",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BOWRiZDljY2YtOWJiNy00OTUyLTgzMmMtMzBlYTI0YTYwYTkzL2ltYWdlXkEyXkFqcGdeQXVyNjQzNDI3NzY@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "A Night to Remember",
+			"Description": "(1958) aka \"La Ãºltima noche del Titanic\""
+		},
+		{
+			"Id": "tt1869152",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BMTA4MjIyZWEtZjYwMS00ZmQ1LWJiMDEtMWNiNTI5NWE3OGJjXkEyXkFqcGdeQXVyNjk1Njg5NTA@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titanic",
+			"Description": "(2012) (TV Mini Series)"
+		},
+		{
+			"Id": "tt1640571",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BMTMxMjQ1MjA5Ml5BMl5BanBnXkFtZTcwNjIzNjg1Mw@@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titanic II",
+			"Description": "(2010) (Video)"
+		},
+		{
+			"Id": "tt0046435",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BMTU3NTUyMTc3Nl5BMl5BanBnXkFtZTgwOTA2MDE3MTE@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titanic",
+			"Description": "(1953)"
+		},
+		{
+			"Id": "tt1695366",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BMjI2MzU2NzEzN15BMl5BanBnXkFtZTcwMzI5NTU3Nw@@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titanic: Blood and Steel",
+			"Description": "(2012) (TV Mini Series)"
+		},
+		{
+			"Id": "tt0115392",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BMTBhMjUzMDItYTBlZS00OThkLWJmZDQtMjg1YTQ5ZDkxYmFjXkEyXkFqcGdeQXVyNjk1Njg5NTA@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titanic",
+			"Description": "(1996) (TV Mini Series)"
+		},
+		{
+			"Id": "tt0081400",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BNTQyZGI0NDgtYTM0ZC00NTdkLTk2OTItYTgwYmYwNjZlNDRlXkEyXkFqcGdeQXVyMTY5Nzc4MDY@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Raise the Titanic",
+			"Description": "(1980)"
+		},
+		{
+			"Id": "tt10944760",
+			"ResultType": "Title",
+			"Image": "https://imdb-api.com/images/original/MV5BNGJlMTVlYWQtYmM5OC00MDgwLTk3NzAtMGViY2VjOGU0YjlkXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_Ratio0.7273_AL_.jpg",
+			"Title": "Titane",
+			"Description": "(2021)"
+		}
+	],
+	"ErrorMessage": ""
+}

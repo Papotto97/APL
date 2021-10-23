@@ -32,5 +32,23 @@ namespace APL_FE.Properties {
                 return ((string)(this["MONGO_URI"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://imdb-api.com/en/API")]
+        public string IMDB_APIURL {
+            get {
+                return ((string)(this["IMDB_APIURL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("k_x6wr6i5k")]
+        public string IMDB_APIKEY {
+            get {
+                return ((string)(this["IMDB_APIKEY"]));
+            }
+        }
     }
 }

@@ -5,5 +5,11 @@
     <Setting Name="MONGO_URI" Type="System.String" Scope="Application">
       <Value Profile="(Default)">mongodb://localhost:27017/APL?authSource=admin&amp;serverSelectionTimeoutMS=5000&amp;connectTimeoutMS=10000</Value>
     </Setting>
+    <Setting Name="IMDB_APIURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://imdb-api.com/en/API</Value>
+    </Setting>
+    <Setting Name="IMDB_APIKEY" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">k_x6wr6i5k</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
