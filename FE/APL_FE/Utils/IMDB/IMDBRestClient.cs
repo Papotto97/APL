@@ -1,4 +1,5 @@
-﻿using APL_FE.Utils.IMDB.Models;
+﻿using APL_FE.Models.Entities;
+using APL_FE.Utils.IMDB.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

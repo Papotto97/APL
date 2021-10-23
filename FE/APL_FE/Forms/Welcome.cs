@@ -1,26 +1,17 @@
 ﻿using APL_FE.DAO;
 using APL_FE.Models;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace APL_FE
+namespace APL_FE.Forms
 {
     public partial class Welcome : Form
     {
-        private UserDAO _userDAO;
+        private UsersDAO _userDAO;
         public Welcome()
         {
             InitializeComponent();
-            _userDAO = new UserDAO();
+            _userDAO = new UsersDAO();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,10 +31,11 @@ namespace APL_FE
             {
                 UserInfo.loggedUsername = user.Username;
 
-                Dashboard loginForm = new Dashboard();
+                Dashboard dashboard = new Dashboard();
                 this.Hide();
-                loginForm.Show();
-                MessageBox.Show(String.Format("Welcome {0}", loginUser));
+                dashboard.Show();
+
+                MessageBox.Show(string.Format("Welcome {0}", loginUser));
             }
             else
                 MessageBox.Show("Retry please");

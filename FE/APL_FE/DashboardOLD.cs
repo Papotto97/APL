@@ -1,4 +1,6 @@
-﻿using APL_FE.Models;
+﻿using APL_FE.DAO;
+using APL_FE.Models;
+using APL_FE.Models.Entities;
 using APL_FE.Utils.IMDB;
 using Newtonsoft.Json;
 using System;
@@ -11,6 +13,7 @@ namespace APL_FE
     public partial class Dashboard : Form
     {
         private IMDBRestClient _restClient;
+        private SearchesDAO _searchesDAO;
 
         private int tolerance = 15;
         private const int WM_NCHITTEST = 132;
@@ -24,6 +27,7 @@ namespace APL_FE
             this.DoubleBuffered = true;
 
             _restClient = new IMDBRestClient();
+            _searchesDAO = new SearchesDAO();
 
             dataGridView1.Hide();
             panelResults.Hide();
@@ -120,8 +124,20 @@ namespace APL_FE
 
             if (res.ErrorMessage != null && string.IsNullOrEmpty(res.ErrorMessage))
             {
+
                 foreach (var item in res.Results)
-                    dataGridView1.Rows.Add(item.Id, item.Title, item.Description, item.Image);
+                {
+                    _searchesDAO.InsertNewSearch(new UserSearches
+                    {
+                        ErrorMessage = res.ErrorMessage,
+                        MovieId = item.Id,
+                        MovieTitle = item.Title,
+                        SearchType = res.SearchType,
+                        User = UserInfo.loggedUsername,
+                        Expression = movieName.Text
+                    });
+                    dataGridView1.Rows.Add(item.Id, item.Title, item.Description, item.Image); 
+                }
 
                 dataGridView1.Show();
                 panelResults.Show();

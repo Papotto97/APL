@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace APL_FE.DAO
 {
-    public class UserDAO
+    public class SearchesDAO
     {
         private readonly string _databaseName = "APL";
-        private readonly string _collectionName = "Users";
-        private readonly IMongoCollection<User> _collection;
+        private readonly string _collectionName = "Searches";
+        private readonly IMongoCollection<UserSearches> _collection;
 
-        public UserDAO()
+        public SearchesDAO()
         {
             var client = new MongoClient(Properties.Settings.Default.MONGO_URI);
             var database = client.GetDatabase(_databaseName);
-            _collection = database.GetCollection<User>(_collectionName);
+            _collection = database.GetCollection<UserSearches>(_collectionName);
         }
 
-        public User GetUserByUsernameAndPassword(string username, string password) 
+        public List<UserSearches> GetSearches(string username) 
         {
 
             //BsonDocument filter = new BsonDocument();
@@ -31,7 +31,7 @@ namespace APL_FE.DAO
 
             try
             {
-                var res = _collection.Find(user => user.Username == username && user.Password == password).FirstOrDefault();
+                var res = _collection.Find(search => search.User.Equals(username)).ToList();
                 Console.WriteLine(res);
                 return res;
             }
@@ -41,7 +41,7 @@ namespace APL_FE.DAO
             }
         }
 
-        public User GetUserById(string id)
+        public UserSearches GetSearchById(string id)
         {
 
             try
@@ -53,6 +53,20 @@ namespace APL_FE.DAO
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public bool InsertNewSearch(UserSearches search)
+        {
+
+            try
+            {
+                _collection.InsertOne(search);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

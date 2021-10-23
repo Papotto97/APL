@@ -1,5 +1,5 @@
 ﻿
-namespace APL_FE
+namespace APL_FE.Forms
 {
     partial class Welcome
     {
