@@ -85,7 +85,6 @@ namespace APL_FE
             this.loggedUser.Name = "loggedUser";
             this.loggedUser.Size = new System.Drawing.Size(0, 16);
             this.loggedUser.TabIndex = 21;
-            this.loggedUser.Click += new System.EventHandler(this.label4_Click_1);
             // 
             // linkLabel1
             // 
@@ -97,7 +96,6 @@ namespace APL_FE
             this.linkLabel1.TabIndex = 20;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Search your favourite films on IMDB";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // linkLabel2
             // 
@@ -138,7 +136,6 @@ namespace APL_FE
             this.movieName.Name = "movieName";
             this.movieName.Size = new System.Drawing.Size(225, 20);
             this.movieName.TabIndex = 25;
-            this.movieName.TextChanged += new System.EventHandler(this.movieName_TextChanged);
             // 
             // movieNameLabel
             // 
@@ -149,7 +146,6 @@ namespace APL_FE
             this.movieNameLabel.Size = new System.Drawing.Size(127, 24);
             this.movieNameLabel.TabIndex = 33;
             this.movieNameLabel.Text = "Movie Name";
-            this.movieNameLabel.Click += new System.EventHandler(this.movieNameLabel_Click);
             // 
             // searchButton
             // 
@@ -172,7 +168,6 @@ namespace APL_FE
             this.panelResults.Padding = new System.Windows.Forms.Padding(10);
             this.panelResults.Size = new System.Drawing.Size(1100, 343);
             this.panelResults.TabIndex = 40;
-            this.panelResults.Paint += new System.Windows.Forms.PaintEventHandler(this.panelResults_Paint);
             // 
             // dataGridView1
             // 
@@ -226,7 +221,6 @@ namespace APL_FE
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(1080, 323);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // movieIdColumn
             // 
@@ -291,7 +285,6 @@ namespace APL_FE
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
             // panel3
             // 
@@ -320,7 +313,6 @@ namespace APL_FE
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(893, 700);
             this.panel4.TabIndex = 43;
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // panelPrincipal
             // 
@@ -335,7 +327,6 @@ namespace APL_FE
             this.panelPrincipal.Name = "panelPrincipal";
             this.panelPrincipal.Size = new System.Drawing.Size(1100, 700);
             this.panelPrincipal.TabIndex = 44;
-            this.panelPrincipal.Paint += new System.Windows.Forms.PaintEventHandler(this.panelPrincipal_Paint);
             // 
             // Dashboard
             // 

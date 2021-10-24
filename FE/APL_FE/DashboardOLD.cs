@@ -87,32 +87,12 @@ namespace APL_FE
             loggedUser.Text = UserInfo.loggedUsername;
         }
 
-        private void PictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ExitButton_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("You are trying to close the application", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Application.Exit();
             }
-        }
-
-        private void label4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void movieNameLabel_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -146,30 +126,6 @@ namespace APL_FE
             }
             else
                 MessageBox.Show("Please check the fields");
-        }
-
-        private void movieName_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void panelResults_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panelPrincipal_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

@@ -28,7 +28,6 @@ namespace APL_FE.Forms
             _restClient = new IMDBRestClient();
             _searchesDAO = new SearchesDAO();
 
-            dataGridView1.Hide();
             panelResults.Hide();
         }
 
@@ -85,6 +84,9 @@ namespace APL_FE.Forms
         {
             loggedUser.Text = UserInfo.loggedUsername;
             loggedUser.Visible = true;
+
+            panelFormCentral.Hide();
+            panelResults.Hide();
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -108,23 +110,36 @@ namespace APL_FE.Forms
                 this.panelFormCentral.Controls.Add(form);
                 this.panelFormCentral.Tag = form;
                 form.Show();
+                panelFormCentral.Show();
             }
         }
 
         private void searchFilmsButton_Click(object sender, EventArgs e)
         {
-            SearchFilmsForm form = new SearchFilmsForm();
+            SearchFilmsForm form = new SearchFilmsForm(this);
             OpenOnPanelFormCentral(form);
+        }
+
+        public void SetResultPanel(Control control)
+        {
+            if (panelResults.Controls.Count > 0)
+                panelResults.Controls.Clear();
+
+            panelResults.Controls.Add(control);
+
+            panelResults.Show();
         }
 
         private void dashboardButton_Click(object sender, EventArgs e)
         {
-            OpenOnPanelFormCentral(null);
-        }
+            panelFormCentral.Hide();
+            panelResults.Hide();
 
-        private void panelTitle_Paint(object sender, PaintEventArgs e)
-        {
+            if (panelResults.Controls.Count > 0)
+                panelResults.Controls.Clear();
 
+            if (panelFormCentral.Controls.Count > 0)
+                panelFormCentral.Controls.Clear();
         }
     }
 }

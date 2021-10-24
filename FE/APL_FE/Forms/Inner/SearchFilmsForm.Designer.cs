@@ -36,7 +36,7 @@ namespace APL_FE.Forms.Inner
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.movieNameLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,24 +77,25 @@ namespace APL_FE.Forms.Inner
             this.searchButton.TabIndex = 47;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // label1
+            // labelTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(347, 31);
-            this.label1.TabIndex = 48;
-            this.label1.Text = "Search your favourite film";
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(12, 24);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(378, 31);
+            this.labelTitle.TabIndex = 48;
+            this.labelTitle.Text = "Search your favourite movie";
             // 
             // SearchFilmsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Thistle;
-            this.ClientSize = new System.Drawing.Size(877, 265);
-            this.Controls.Add(this.label1);
+            this.BackColor = System.Drawing.Color.Salmon;
+            this.ClientSize = new System.Drawing.Size(916, 265);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.movieName);
             this.Controls.Add(this.movieNameLabel);
@@ -117,7 +118,7 @@ namespace APL_FE.Forms.Inner
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label movieNameLabel;
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTitle;
     }
 }
 
