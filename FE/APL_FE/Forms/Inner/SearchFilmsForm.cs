@@ -6,7 +6,7 @@ using APL_FE.Utils.IMDB.Models;
 using Newtonsoft.Json;
 using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace APL_FE.Forms.Inner
@@ -15,11 +15,7 @@ namespace APL_FE.Forms.Inner
     {
         private IMDBRestClient _restClient;
         private SearchesDAO _searchesDAO;
-
-        private int tolerance = 15;
-        private const int WM_NCHITTEST = 132;
-        private const int HTBOTTOMRIGHT = 17;
-        private Rectangle sizeGripRectangle;
+        private FavouritesDAO _favouritesDAO;
 
         private readonly Dashboard _parentForm;
 
@@ -31,8 +27,9 @@ namespace APL_FE.Forms.Inner
 
             _restClient = new IMDBRestClient();
             _searchesDAO = new SearchesDAO();
+            _favouritesDAO = new FavouritesDAO();
 
-            _parentForm = (Dashboard) parent;
+            _parentForm = (Dashboard)parent;
         }
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -75,7 +72,8 @@ namespace APL_FE.Forms.Inner
                 MessageBox.Show("Please check the fields");
         }
 
-        private DataGridView PrepareDataGrid(SearchData results) {
+        private DataGridView PrepareDataGrid(SearchData results)
+        {
             DataGridView dataGridView1 = new DataGridView();
             DataGridViewTextBoxColumn movieIdColumn = new DataGridViewTextBoxColumn();
             DataGridViewTextBoxColumn titleColumn = new DataGridViewTextBoxColumn();
@@ -86,17 +84,17 @@ namespace APL_FE.Forms.Inner
             movieIdColumn.Name = "movieIdColumn";
             movieIdColumn.ReadOnly = true;
             movieIdColumn.Width = 80;
-            
+
             titleColumn.HeaderText = "Title";
             titleColumn.Name = "titleColumn";
             titleColumn.ReadOnly = true;
             titleColumn.Width = 55;
-            
+
             descriptionColumn.HeaderText = "Description";
             descriptionColumn.Name = "descriptionColumn";
             descriptionColumn.ReadOnly = true;
             descriptionColumn.Width = 94;
-            
+
             imageColumn.HeaderText = "Image";
             imageColumn.Name = "imageColumn";
             imageColumn.ReadOnly = true;
@@ -153,11 +151,35 @@ namespace APL_FE.Forms.Inner
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowHeadersVisible = true;
+            dataGridView1.RowHeaderMouseDoubleClick += new DataGridViewCellMouseEventHandler(this.DataGridView1_RowHeaderMouseDoubleClick);
             dataGridView1.Size = new Size(1080, 323);
             dataGridView1.TabIndex = 0;
 
             return dataGridView1;
+        }
+
+        private void DataGridView1_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            StringBuilder messageBoxCS;
+            DataGridView datagrid = (DataGridView)sender;
+            string movieId = datagrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+            if (_favouritesDAO.GetFavouriteByMovieIdAndUser(movieId, UserInfo.loggedUsername) == null)
+            {
+                if (MessageBox.Show("The selected film is not among your favorites, do you want to add it?", "Add movies to your favorites", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    if (_favouritesDAO.InsertNewFavourite(movieId, UserInfo.loggedUsername))
+                    {
+                        messageBoxCS = new StringBuilder();
+                        messageBoxCS.AppendFormat("{0} = {1}", "MovieId", movieId);
+                        messageBoxCS.AppendLine();
+                        MessageBox.Show(messageBoxCS.ToString(), "Added");
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Movie already in your favorites", "Add movies to your favorites");
         }
     }
 }

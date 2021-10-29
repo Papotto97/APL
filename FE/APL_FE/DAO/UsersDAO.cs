@@ -1,16 +1,12 @@
-﻿using APL_FE.Models;
+﻿using APL_FE.DAO.IDAO;
 using APL_FE.Models.Entities;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace APL_FE.DAO
 {
-    public class UsersDAO
+    public class UsersDAO : IUsersDAO
     {
         private readonly string _databaseName = "APL";
         private readonly string _collectionName = "Users";

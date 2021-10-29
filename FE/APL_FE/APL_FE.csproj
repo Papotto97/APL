@@ -119,6 +119,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\IDAO\IFavouritesDAO.cs" />
+    <Compile Include="DAO\IDAO\ISearchesDAO.cs" />
+    <Compile Include="DAO\IDAO\IUsersDAO.cs" />
+    <Compile Include="DAO\FavouritesDAO.cs" />
     <Compile Include="DAO\SearchesDAO.cs" />
     <Compile Include="DAO\UsersDAO.cs" />
     <Compile Include="Forms\Dashboard.cs">
@@ -145,6 +149,7 @@
     <Compile Include="Forms\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Favourites.cs" />
     <Compile Include="Models\Entities\UserSearches.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\UserInfo.cs" />
