@@ -46,26 +46,40 @@ namespace APL_FE.Forms
             // 
             // signin
             // 
+            this.signin.BackColor = System.Drawing.Color.Black;
+            this.signin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.signin.FlatAppearance.BorderSize = 0;
+            this.signin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(69)))), ((int)(((byte)(76)))));
+            this.signin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(45)))), ((int)(((byte)(53)))));
+            this.signin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.signin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.signin.ForeColor = System.Drawing.Color.White;
+            this.signin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.signin.Location = new System.Drawing.Point(15, 234);
             this.signin.Name = "signin";
             this.signin.Size = new System.Drawing.Size(134, 38);
-            this.signin.TabIndex = 0;
+            this.signin.TabIndex = 4;
             this.signin.Text = "Sign in";
-            this.signin.UseVisualStyleBackColor = true;
+            this.signin.UseVisualStyleBackColor = false;
             this.signin.Click += new System.EventHandler(this.signinButton_Click);
             // 
             // signup
             // 
-            this.signup.Cursor = System.Windows.Forms.Cursors.Default;
+            this.signup.BackColor = System.Drawing.Color.Black;
+            this.signup.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.signup.FlatAppearance.BorderSize = 0;
+            this.signup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(69)))), ((int)(((byte)(76)))));
+            this.signup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(45)))), ((int)(((byte)(53)))));
+            this.signup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.signup.ForeColor = System.Drawing.Color.White;
+            this.signup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.signup.Location = new System.Drawing.Point(155, 234);
             this.signup.Name = "signup";
             this.signup.Size = new System.Drawing.Size(134, 38);
-            this.signup.TabIndex = 1;
+            this.signup.TabIndex = 5;
             this.signup.Text = "Sign up";
-            this.signup.UseVisualStyleBackColor = true;
-            this.signup.Click += new System.EventHandler(this.signupButton_Click);
+            this.signup.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -74,7 +88,7 @@ namespace APL_FE.Forms
             this.label1.Location = new System.Drawing.Point(12, 425);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 16);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 15;
             this.label1.Text = "Papotto Placido";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
@@ -85,7 +99,7 @@ namespace APL_FE.Forms
             this.label2.Location = new System.Drawing.Point(137, 425);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 16);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 15;
             this.label2.Text = "Restivo Luca";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
@@ -96,8 +110,9 @@ namespace APL_FE.Forms
             this.label3.Location = new System.Drawing.Point(241, 425);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 16);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 15;
             this.label3.Text = "Russo Salvatore";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // usernameField
             // 
@@ -106,8 +121,7 @@ namespace APL_FE.Forms
             this.usernameField.Name = "usernameField";
             this.usernameField.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.usernameField.Size = new System.Drawing.Size(189, 22);
-            this.usernameField.TabIndex = 17;
-            this.usernameField.TextChanged += new System.EventHandler(this.UsernameField_TextChanged);
+            this.usernameField.TabIndex = 1;
             // 
             // passwordField
             // 
@@ -115,9 +129,8 @@ namespace APL_FE.Forms
             this.passwordField.Location = new System.Drawing.Point(100, 186);
             this.passwordField.Name = "passwordField";
             this.passwordField.Size = new System.Drawing.Size(189, 22);
-            this.passwordField.TabIndex = 17;
+            this.passwordField.TabIndex = 2;
             this.passwordField.UseSystemPasswordChar = true;
-            this.passwordField.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // usernameLabel
             // 
@@ -126,9 +139,8 @@ namespace APL_FE.Forms
             this.usernameLabel.Location = new System.Drawing.Point(12, 159);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(83, 16);
-            this.usernameLabel.TabIndex = 7;
+            this.usernameLabel.TabIndex = 15;
             this.usernameLabel.Text = "Username:";
-            this.usernameLabel.Click += new System.EventHandler(this.label4_Click);
             // 
             // passwordLabel
             // 
@@ -137,7 +149,7 @@ namespace APL_FE.Forms
             this.passwordLabel.Location = new System.Drawing.Point(12, 192);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(80, 16);
-            this.passwordLabel.TabIndex = 8;
+            this.passwordLabel.TabIndex = 15;
             this.passwordLabel.Text = "Password:";
             // 
             // pictureBox1
@@ -148,9 +160,8 @@ namespace APL_FE.Forms
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(422, 351);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // checkLoginShowPassword
             // 
@@ -160,7 +171,7 @@ namespace APL_FE.Forms
             this.checkLoginShowPassword.Location = new System.Drawing.Point(294, 188);
             this.checkLoginShowPassword.Name = "checkLoginShowPassword";
             this.checkLoginShowPassword.Size = new System.Drawing.Size(64, 20);
-            this.checkLoginShowPassword.TabIndex = 16;
+            this.checkLoginShowPassword.TabIndex = 3;
             this.checkLoginShowPassword.Text = "Show";
             this.checkLoginShowPassword.UseVisualStyleBackColor = true;
             this.checkLoginShowPassword.CheckedChanged += new System.EventHandler(this.checkLoginShowPassword_CheckedChanged);
@@ -170,7 +181,7 @@ namespace APL_FE.Forms
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(69)))), ((int)(((byte)(76)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.checkLoginShowPassword);
             this.Controls.Add(this.pictureBox1);
