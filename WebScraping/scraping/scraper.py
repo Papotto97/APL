@@ -30,6 +30,7 @@ def movie_scraper():
         print('Requesting ', url)
         response = requests.get(url, headers = headers)
         count += 1
+        elapsed_time = time() - start_time
         # Pause the loop for 2-5 seconds
         sleep(randint(2,5))
 
@@ -49,8 +50,10 @@ def movie_scraper():
             metascore = row.find('div', class_ = 'clamp-metascore').find('a').find('div').text
             date = row.find('div', class_ = 'clamp-details').find('span').text
             summary = row.find('div', class_ = 'summary').text
-            movie = Movie(title, userscore, metascore, date, summary)
-            # Returning the dictionary for the defined attributes
-            movie_list.append(movie.__dict__)
-    return movie_list
+            movie = Movie(title, userscore, metascore, date, summary)         
+            movie_list.append(movie)
+
+    print("Total requests: {}; Elapsed time: {}s".format(count, round(elapsed_time, 2)))
+    # Returning the dictionary for the defined attributes whit list comprehension
+    return [movie.__dict__ for movie in movie_list]
 

@@ -1,4 +1,4 @@
-from pymongo import MongoClient, collection
+from pymongo import MongoClient
 
 class MongoDBClient:
     def __init__(self, host, port, db, collection):

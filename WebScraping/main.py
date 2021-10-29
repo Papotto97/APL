@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from scraping.scraper import movie_scraper
 from database.client import MongoDBClient
+from utils.printer import movie_printer
 
 def main():
     load_dotenv()
@@ -16,6 +17,7 @@ def main():
         os.environ.get("MONGO_COLLECTION")
     )
     client.insertMany(movies)
+    movie_printer(movies)
     print("Finish")
     
 if __name__ == "__main__":
