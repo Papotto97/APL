@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime
 
 #To ensure our requests are accepted and not termed as a bot.
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'}
@@ -11,6 +12,7 @@ class Movie:
         self.metascore = metascore
         self.date = date
         self.summary = summary
+        self.timestamp = datetime.now()
 
 def movie_scraper():
     movie_list = []
@@ -29,6 +31,8 @@ def movie_scraper():
         metascore = row.find('div', class_ = 'clamp-metascore').find('a').find('div').text
         date = row.find('div', class_ = 'clamp-details').find('span').text
         summary = row.find('div', class_ = 'summary').text
-        movie_list.append(Movie(title, userscore, metascore, date, summary))
+        movie = Movie(title, userscore, metascore, date, summary)
+        # Returning the dictionary for the defined attributes
+        movie_list.append(movie.__dict__)
     return movie_list
 

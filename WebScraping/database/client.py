@@ -1,10 +1,11 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, collection
 
 class MongoDBClient:
-    def __init__(self):
-        self.client = MongoClient(host="localhost", port=27017)
-        self.db = self.client['APL']
-        self.collection = self.db['scraped_movies']
+    def __init__(self, host, port, db, collection):
+        self.client = MongoClient(host=host, port=port)
+        self.db = self.client[db]
+        self.collection = self.db[collection]
+        print("Initializing connection: [monogdb://", host, ":", port, "/", db, "]", sep='')
 
     def insertOne(self, document):
         return self.collection.insert_one(document)
