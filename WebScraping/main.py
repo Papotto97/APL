@@ -17,7 +17,7 @@ def main():
         os.environ.get("MONGO_COLLECTION")
     )
     client.insertMany(movies)
-    movie_printer(movies)
+    #movie_printer(movies)
     print("Finish")
     
 if __name__ == "__main__":
