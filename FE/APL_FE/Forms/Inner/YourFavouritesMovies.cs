@@ -1,32 +1,28 @@
 ﻿using APL_FE.DAO;
 using APL_FE.Models;
 using APL_FE.Models.Entities;
-using APL_FE.Utils.IMDB;
-using APL_FE.Utils.IMDB.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
 namespace APL_FE.Forms.Inner
 {
-    public partial class SearchFilmsForm : Form
+    public partial class YourFavouritesMovies : Form
     {
-        private IMDBRestClient _restClient;
-        private SearchesDAO _searchesDAO;
-        private FavouritesDAO _favouritesDAO;
+        private readonly SearchesDAO _searchesDAO;
+        private readonly FavouritesDAO _favouritesDAO;
 
         private readonly Dashboard _parentForm;
 
-        public SearchFilmsForm(Form parent)
+        public YourFavouritesMovies(Form parent)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.DoubleBuffered = true;
 
-            _restClient = new IMDBRestClient();
             _searchesDAO = new SearchesDAO();
             _favouritesDAO = new FavouritesDAO();
 
@@ -37,29 +33,20 @@ namespace APL_FE.Forms.Inner
         {
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
+        private void showFavourites_Click(object sender, EventArgs e)
         {
-            var res = _restClient.SearchMovie(movieName.Text);
+            var res = _favouritesDAO.GetFavourites(UserInfo.loggedUsername);
 
             DataGridView dataGridView = PrepareDataGrid(res);
 
             if (dataGridView.RowCount != 0)
                 dataGridView.Rows.Clear();
 
-            if (res.ErrorMessage != null && string.IsNullOrEmpty(res.ErrorMessage))
+            if (res != null)
             {
 
-                foreach (var item in res.Results)
+                foreach (var item in res)
                 {
-                    _searchesDAO.InsertNewSearch(new UserSearches
-                    {
-                        ErrorMessage = res.ErrorMessage,
-                        MovieId = item.Id,
-                        MovieTitle = item.Title,
-                        SearchType = res.SearchType,
-                        User = UserInfo.loggedUsername,
-                        Expression = movieName.Text
-                    });
 
                     //HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(item.Image);
                     //myRequest.Method = "GET";
@@ -67,7 +54,9 @@ namespace APL_FE.Forms.Inner
                     //Bitmap bmp = new Bitmap(myResponse.GetResponseStream());
                     //myResponse.Close();
 
-                    dataGridView.Rows.Add(item.Id, item.Title, item.Description, item.Image);
+                    var title = _searchesDAO.GetSearchByMovieId(item.MovieId);
+
+                    dataGridView.Rows.Add(item.MovieId, title?.MovieTitle, item.PersonalVote);
                 }
 
                 //dataGridView.Show();
@@ -80,13 +69,12 @@ namespace APL_FE.Forms.Inner
                 MessageBox.Show("Please check the fields");
         }
 
-        private DataGridView PrepareDataGrid(SearchData results)
+        private DataGridView PrepareDataGrid(List<Favourites> results)
         {
             DataGridView dataGridView1 = new DataGridView();
             DataGridViewTextBoxColumn movieIdColumn = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn titleColumn = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn descriptionColumn = new DataGridViewTextBoxColumn();
-            DataGridViewTextBoxColumn imageColumn = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn movieTitleColumn = new DataGridViewTextBoxColumn();
+            DataGridViewComboBoxColumn voteColumn = new DataGridViewComboBoxColumn();
             //DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
 
             movieIdColumn.HeaderText = "Movie ID";
@@ -94,20 +82,18 @@ namespace APL_FE.Forms.Inner
             movieIdColumn.ReadOnly = true;
             movieIdColumn.Width = 80;
 
-            titleColumn.HeaderText = "Title";
-            titleColumn.Name = "titleColumn";
-            titleColumn.ReadOnly = true;
-            titleColumn.Width = 55;
+            movieTitleColumn.HeaderText = "Movie Title";
+            movieTitleColumn.Name = "movieTitleColumn";
+            movieTitleColumn.ReadOnly = true;
+            movieTitleColumn.Width = 80;
 
-            descriptionColumn.HeaderText = "Description";
-            descriptionColumn.Name = "descriptionColumn";
-            descriptionColumn.ReadOnly = true;
-            descriptionColumn.Width = 94;
+            var voteList = new List<string>() { "0", "1", "2", "3", "4", "5" };
+            voteColumn.DataSource = voteList;
+            voteColumn.HeaderText = "Personal vote";
+            voteColumn.Name = "voteColumn";
+            voteColumn.ReadOnly = false;
+            voteColumn.Width = 80;
 
-            imageColumn.HeaderText = "Image";
-            imageColumn.Name = "imageColumn";
-            imageColumn.ReadOnly = true;
-            imageColumn.Width = 67;
             //imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
 
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
@@ -135,9 +121,8 @@ namespace APL_FE.Forms.Inner
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] {
             movieIdColumn,
-            titleColumn,
-            descriptionColumn,
-            imageColumn});
+            movieTitleColumn,
+            voteColumn});
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(61)))), ((int)(((byte)(69)))));
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
@@ -152,7 +137,6 @@ namespace APL_FE.Forms.Inner
             dataGridView1.Location = new Point(10, 10);
             dataGridView1.Margin = new Padding(10);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(45)))), ((int)(((byte)(53)))));
@@ -163,34 +147,32 @@ namespace APL_FE.Forms.Inner
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.RowHeadersVisible = true;
-            dataGridView1.RowHeaderMouseDoubleClick += new DataGridViewCellMouseEventHandler(this.DataGridView1_RowHeaderMouseDoubleClick);
+            dataGridView1.CellValueChanged += new DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
             dataGridView1.Size = new Size(1080, 323);
             dataGridView1.TabIndex = 0;
 
             return dataGridView1;
         }
 
-        private void DataGridView1_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             StringBuilder messageBoxCS;
             DataGridView datagrid = (DataGridView)sender;
             string movieId = datagrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            string vote = datagrid.Rows[e.RowIndex].Cells[1].Value.ToString();
 
-            if (_favouritesDAO.GetFavouriteByMovieIdAndUser(movieId, UserInfo.loggedUsername) == null)
+            if (MessageBox.Show("Do you want to update your personal rating for the selected film?", "Update personal rating", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("The selected film is not among your favorites, do you want to add it?", "Add movies to your favorites", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (_favouritesDAO.UpdateFavourite(movieId, UserInfo.loggedUsername, vote))
                 {
-                    if (_favouritesDAO.InsertNewFavourite(movieId, UserInfo.loggedUsername))
-                    {
-                        messageBoxCS = new StringBuilder();
-                        messageBoxCS.AppendFormat("{0} = {1}", "MovieId", movieId);
-                        messageBoxCS.AppendLine();
-                        MessageBox.Show(messageBoxCS.ToString(), "Added");
-                    }
+                    messageBoxCS = new StringBuilder();
+                    messageBoxCS.AppendFormat("{0} = {1}", "MovieId", movieId);
+                    messageBoxCS.AppendLine();
+                    messageBoxCS.AppendFormat("{0} = {1}", "Vote", vote);
+                    messageBoxCS.AppendLine();
+                    MessageBox.Show(messageBoxCS.ToString(), "Added");
                 }
             }
-            else
-                MessageBox.Show("Movie already in your favorites", "Add movies to your favorites");
         }
     }
 }

@@ -53,6 +53,21 @@ namespace APL_FE.DAO
             }
         }
 
+        public UserSearches GetSearchByMovieId(string movieId)
+        {
+
+            try
+            {
+                var res = _collection.Find(userSearch => userSearch.MovieId == movieId).FirstOrDefault();
+                Console.WriteLine(res);
+                return res;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public bool InsertNewSearch(UserSearches search)
         {
 

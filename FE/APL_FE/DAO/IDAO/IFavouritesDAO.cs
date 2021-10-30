@@ -11,5 +11,7 @@ namespace APL_FE.DAO.IDAO
 
         bool InsertNewFavourite(string movieId, string username);
 
+        bool UpdateFavourite(string movieId, string username, string personalVote);
+
     }
 }

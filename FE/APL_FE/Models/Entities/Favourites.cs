@@ -13,6 +13,9 @@ namespace APL_FE.Models.Entities
         [BsonElement("movieId")]
         public string MovieId { get; set; }
 
+        [BsonElement("personalVote")]
+        public string PersonalVote { get; set; }
+
         [BsonElement("user")]
         public string User { get; set; }
     }

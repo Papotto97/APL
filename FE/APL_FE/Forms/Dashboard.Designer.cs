@@ -38,6 +38,7 @@ namespace APL_FE.Forms
             this.panelTitle = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.yourFavourites = new System.Windows.Forms.Button();
             this.searchFilmsButton = new System.Windows.Forms.Button();
             this.dashboardButton = new System.Windows.Forms.Button();
             this.panelFormCentral = new System.Windows.Forms.Panel();
@@ -118,6 +119,7 @@ namespace APL_FE.Forms
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(34)))), ((int)(((byte)(39)))));
+            this.panel3.Controls.Add(this.yourFavourites);
             this.panel3.Controls.Add(this.searchFilmsButton);
             this.panel3.Controls.Add(this.dashboardButton);
             this.panel3.Location = new System.Drawing.Point(0, 53);
@@ -125,6 +127,27 @@ namespace APL_FE.Forms
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(168, 647);
             this.panel3.TabIndex = 42;
+            // 
+            // yourFavourites
+            // 
+            this.yourFavourites.Cursor = System.Windows.Forms.Cursors.Default;
+            this.yourFavourites.FlatAppearance.BorderSize = 0;
+            this.yourFavourites.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(69)))), ((int)(((byte)(76)))));
+            this.yourFavourites.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(45)))), ((int)(((byte)(53)))));
+            this.yourFavourites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.yourFavourites.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yourFavourites.ForeColor = System.Drawing.Color.Silver;
+            this.yourFavourites.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.yourFavourites.Location = new System.Drawing.Point(0, 98);
+            this.yourFavourites.Margin = new System.Windows.Forms.Padding(0);
+            this.yourFavourites.Name = "yourFavourites";
+            this.yourFavourites.Size = new System.Drawing.Size(168, 40);
+            this.yourFavourites.TabIndex = 27;
+            this.yourFavourites.Text = "Your favourites ❤️";
+            this.yourFavourites.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.yourFavourites.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.yourFavourites.UseVisualStyleBackColor = true;
+            this.yourFavourites.Click += new System.EventHandler(this.yourFavourites_Click);
             // 
             // searchFilmsButton
             // 
@@ -225,6 +248,7 @@ namespace APL_FE.Forms
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button dashboardButton;
         private System.Windows.Forms.Button searchFilmsButton;
+        private System.Windows.Forms.Button yourFavourites;
     }
 }
 

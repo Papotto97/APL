@@ -71,5 +71,27 @@ namespace APL_FE.DAO
             }
         }
 
+        public bool UpdateFavourite(string movieId, string username, string personalVote)
+        {
+
+            try
+            {
+                //var update = new Favourites
+                //{
+                //    MovieId = movieId,
+                //    PersonalVote = personalVote,
+                //    User = username
+                //};
+
+                var update = Builders<Favourites>.Update.Set("personalVote", personalVote);
+                _collection.UpdateOne(fav => fav.MovieId.Equals(movieId) && fav.User.Equals(username), update);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
     }
 }

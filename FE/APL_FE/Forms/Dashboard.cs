@@ -99,16 +99,20 @@ namespace APL_FE.Forms
 
         private void OpenOnPanelFormCentral(object child)
         {
-            if (this.panelFormCentral.Controls.Count > 0)
-                this.panelFormCentral.Controls.RemoveAt(0);
+            if (panelFormCentral.Controls.Count > 0)
+            {
+                Form control = (Form)panelFormCentral.Controls[0];
+                this.panelFormCentral.Controls.Clear();
+                control.Close();
+            }
             if (child != null)
             {
                 Form form = child as Form;
                 form.TopLevel = false;
                 form.FormBorderStyle = FormBorderStyle.None;
                 form.Dock = DockStyle.Fill;
-                this.panelFormCentral.Controls.Add(form);
-                this.panelFormCentral.Tag = form;
+                panelFormCentral.Controls.Add(form);
+                panelFormCentral.Tag = form;
                 form.Show();
                 panelFormCentral.Show();
             }
@@ -116,6 +120,10 @@ namespace APL_FE.Forms
 
         private void searchFilmsButton_Click(object sender, EventArgs e)
         {
+            panelResults.Hide();
+            if (panelResults.Controls.Count > 0)
+                panelResults.Controls.Clear();
+
             SearchFilmsForm form = new SearchFilmsForm(this);
             OpenOnPanelFormCentral(form);
         }
@@ -140,6 +148,16 @@ namespace APL_FE.Forms
 
             if (panelFormCentral.Controls.Count > 0)
                 panelFormCentral.Controls.Clear();
+        }
+
+        private void yourFavourites_Click(object sender, EventArgs e)
+        {
+            panelResults.Hide();
+            if (panelResults.Controls.Count > 0)
+                panelResults.Controls.Clear();
+
+            YourFavouritesMovies form = new YourFavouritesMovies(this);
+            OpenOnPanelFormCentral(form);
         }
     }
 }
