@@ -1,16 +1,16 @@
 # APL Backend Module
-##IDE setup (Goland from Intellij IDEA)
+## IDE setup (Goland from Intellij IDEA)
 https://www.jetbrains.com/help/idea/quick-start-guide-goland.html#create-a-new-project
 ## Quick start with Go
-##Install Go
+### Install Go
 https://golang.org/dl/
 
-##Install Gin-Gonic Framework package with using the go command
+### Install Gin-Gonic Framework package with using the go command
 ```go 
 go get github.com/gin-gonic/gin
 ```
 
-##Go get some packages
+### Go get some mod packages
 Add gin-gonic mod gin
 ```go 
 go mod download github.com/gin-gonic/gin
@@ -19,21 +19,19 @@ Add gin-gonic mod sse
 ```go 
 go mod download github.com/gin-contrib/sse
 ```
-Add go-playground validator
+Add go-playground mods
 ```go 
 go mod download github.com/go-playground/validator/v10
 ```
-Add go-playground universa-translator
 ```go 
 go mod download github.com/go-playground/universal-translator
+```
+```go 
+go mod download github.com/go-playground/locales
 ```
 Add protobuf mod
 ```go 
 go mod download github.com/golang/protobuf
-```
-Add go-playground locales
-```go 
-go mod download github.com/go-playground/locales
 ```
 Add leodido mod
 ```go 
@@ -47,7 +45,7 @@ Add codec mod
 ```go 
 go mod download github.com/ugorji/go github.com/ugorji/go/codec
 ```
-Add mongo-driver mod
+Add mongo drivers mod
 ```go 
 go mod download go.mongodb.org/mongo-driver
 ```
@@ -67,7 +65,7 @@ Add errors mod
 ```go 
 go mod download github.com/pkg/errors
 ```
-Add xdg-go mod
+Add xdg-go mods
 ```go 
 go mod download github.com/xdg-go/scram
 ```
@@ -81,7 +79,7 @@ Add youmark mod
 ```go 
 go mod download github.com/youmark/pkcs8
 ```
-Add x mod
+Add x mods
 ```go 
 go mod download golang.org/x/crypto
 ```
@@ -96,11 +94,12 @@ Add gopkg mod
 go mod download gopkg.in/yaml.v2
 ```
 
-
-
-
-
-##Build
+### Build
 ```go 
 go build BE
+```
+
+### Run
+```go 
+go run
 ```
