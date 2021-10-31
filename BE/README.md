@@ -3,7 +3,10 @@
 https://www.jetbrains.com/help/idea/quick-start-guide-goland.html#create-a-new-project
 ## Quick start with Go
 ### Install Go
-https://golang.org/dl/
+
+Go to: https://golang.org/dl/
+
+Under Featured downloads select latest version
 
 ### Install Gin-Gonic Framework package with using the go command
 ```go 
