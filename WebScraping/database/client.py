@@ -11,4 +11,5 @@ class MongoDBClient:
         return self.collection.insert_one(document)
 
     def insertMany(self, documents):
+        self.collection.delete_many({}) # Clean all records on collection
         return self.collection.insert_many(documents)

@@ -6,7 +6,7 @@ from utils.printer import movie_printer
 
 def main():
     load_dotenv()
-    print("Top 500 Metacritic Movie Scraper v",  os.environ.get("VERSION"))
+    print("Top 1000 IMDb Movie Scraper v",  os.environ.get("VERSION"))
     movies = movie_scraper()
     print("Scraped movies:", len(movies))
     print("Saving data")
@@ -17,7 +17,7 @@ def main():
         os.environ.get("MONGO_COLLECTION")
     )
     client.insertMany(movies)
-    #movie_printer(movies)
+    movie_printer(movies)
     print("Finish")
     
 if __name__ == "__main__":
