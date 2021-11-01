@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"unictapl/config"
 	"unictapl/models"
+	"unictapl/utils"
 )
 
 func CreateMovie(movie *models.Movie) (primitive.ObjectID, string) {
@@ -22,7 +23,7 @@ func CreateMovie(movie *models.Movie) (primitive.ObjectID, string) {
 
 	res := client.Database("unictapl").Collection("movies").FindOne(ctx, bson.D{{"imdbId", movie.ImdbId}})
 	res.Decode(&s)
-	if (models.Movie{}) == s {
+	if utils.IsMovieEmpty(s) {
 		result, err := client.Database("unictapl").Collection("movies").InsertOne(ctx, movie)
 		if err != nil {
 			log.Printf("Could not create Movie: %v", err)
@@ -36,7 +37,7 @@ func CreateMovie(movie *models.Movie) (primitive.ObjectID, string) {
 	}
 
 }
-func FindById(movieId string) (movie models.Movie) {
+func FindMovieById(movieId string) (movie models.Movie) {
 
 	client, ctx, cancel := config.GetConnection()
 	defer cancel()
@@ -48,7 +49,7 @@ func FindById(movieId string) (movie models.Movie) {
 	}
 	return movie
 }
-func FindAll() (movies []models.Movie) {
+func FindAllMovies() (movies []models.Movie) {
 	var results []models.Movie
 
 	client, ctx, cancel := config.GetConnection()
