@@ -67,10 +67,11 @@ def movie_scraper():
             print('summary: {}'.format(clean_string(summary)))
             
             runtime_ = row.find('p', class_='text-muted').find('span', class_='runtime').text
+            runtime_ = runtime_.split(' ')[0] #Get only mins (numeric)
             print('runtime: {}'.format(runtime_))
             
             genres_list = row.find('p', class_='text-muted').find('span', class_='genre').text
-            genres = clean_genres(genres_list).split(",")
+            genres = clean_genres(genres_list).replace(",", "|")
             print('genres: {}'.format(genres))
             
             movie = Movie(imdb_id, title, clean_string(rating), clean_year(date), clean_string(summary), runtime_, genres)   

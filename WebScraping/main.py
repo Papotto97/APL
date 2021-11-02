@@ -6,7 +6,16 @@ from utils.printer import movie_printer
 
 def main():
     load_dotenv()
+    print("=========================================================")
+    print("Papotto Placido")
+    print("Restivo Luca")
+    print("Russo Salvatore")
+    print("=========================================================")
+    print("")
+    print("*********************************************************")
     print("Top 1000 IMDb Movie Scraper v",  os.environ.get("VERSION"))
+    print("*********************************************************")
+    print("")
     movies = movie_scraper()
     print("Scraped movies:", len(movies))
     print("Saving data")
