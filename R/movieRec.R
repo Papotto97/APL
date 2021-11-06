@@ -5,6 +5,7 @@ library(ggplot2)
 library(tidyverse)
 library(scales)
 library(data.table)
+library(plumber) #develop API
 
 ## Data pre-processing
 genres <- as.data.frame(movies$genres, stringsAsFactors=FALSE)
@@ -103,4 +104,4 @@ ggsave("APL1.png", plot, width=4, height=3)
        y="IMDb Movie Rating",
        fill="# Movies")
 
-ggsave("APL2.png", plot, width=4, height=3)
+ggsave("..\FE\APL_FE\Resources\R\APL2.png", plot, width=4, height=3)
