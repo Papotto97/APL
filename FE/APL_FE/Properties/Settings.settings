@@ -11,5 +11,8 @@
     <Setting Name="IMDB_APIKEY" Type="System.String" Scope="Application">
       <Value Profile="(Default)">k_x6wr6i5k</Value>
     </Setting>
+    <Setting Name="R_URL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:7414</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

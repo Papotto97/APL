@@ -28,6 +28,8 @@ namespace APL_FE.Forms
             _restClient = new IMDBRestClient();
             _searchesDAO = new SearchesDAO();
 
+            dashboardButton_Click(this, EventArgs.Empty);
+
             panelResults.Hide();
         }
 
@@ -85,7 +87,7 @@ namespace APL_FE.Forms
             loggedUser.Text = UserInfo.loggedUsername;
             loggedUser.Visible = true;
 
-            panelFormCentral.Hide();
+            //panelFormCentral.Hide();
             panelResults.Hide();
         }
 
@@ -101,9 +103,10 @@ namespace APL_FE.Forms
         {
             if (panelFormCentral.Controls.Count > 0)
             {
-                Form control = (Form)panelFormCentral.Controls[0];
-                this.panelFormCentral.Controls.Clear();
-                control.Close();
+                foreach (Control contr in panelFormCentral.Controls)
+                    contr.Dispose();
+
+                panelFormCentral.Controls.Clear();
             }
             if (child != null)
             {
@@ -140,14 +143,21 @@ namespace APL_FE.Forms
 
         private void dashboardButton_Click(object sender, EventArgs e)
         {
-            panelFormCentral.Hide();
             panelResults.Hide();
-
             if (panelResults.Controls.Count > 0)
                 panelResults.Controls.Clear();
 
-            if (panelFormCentral.Controls.Count > 0)
-                panelFormCentral.Controls.Clear();
+            DashboardPlotForm form = new DashboardPlotForm(this);
+            OpenOnPanelFormCentral(form);
+
+            //panelFormCentral.Hide();
+            //panelResults.Hide();
+
+            //if (panelResults.Controls.Count > 0)
+            //    panelResults.Controls.Clear();
+
+            //if (panelFormCentral.Controls.Count > 0)
+            //    panelFormCentral.Controls.Clear();
         }
 
         private void yourFavourites_Click(object sender, EventArgs e)

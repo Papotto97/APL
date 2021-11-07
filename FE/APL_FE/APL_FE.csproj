@@ -137,6 +137,12 @@
     <Compile Include="DashboardOLD.Designer.cs">
       <DependentUpon>DashboardOLD.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Inner\DashboardPlotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Inner\DashboardPlotForm.Designer.cs">
+      <DependentUpon>DashboardPlotForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Inner\YourFavouritesMovies.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +169,7 @@
     <Compile Include="Utils\ClientEncryption.cs" />
     <Compile Include="Utils\EntityDTOConverter.cs" />
     <Compile Include="Utils\EncryptionDecryptionUtils.cs" />
+    <Compile Include="Utils\RModuleRestClient.cs" />
     <Compile Include="Utils\IMDB\APIEnum.cs" />
     <Compile Include="Utils\IMDB\IMDBRestClient.cs" />
     <Compile Include="Models\IMDB\SearchData.cs" />
@@ -173,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DashboardOLD.resx">
       <DependentUpon>DashboardOLD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inner\DashboardPlotForm.resx">
+      <DependentUpon>DashboardPlotForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Inner\YourFavouritesMovies.resx">
       <DependentUpon>YourFavouritesMovies.cs</DependentUpon>

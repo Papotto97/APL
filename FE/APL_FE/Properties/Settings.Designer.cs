@@ -50,5 +50,14 @@ namespace APL_FE.Properties {
                 return ((string)(this["IMDB_APIKEY"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:7414")]
+        public string R_URL {
+            get {
+                return ((string)(this["R_URL"]));
+            }
+        }
     }
 }
