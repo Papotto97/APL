@@ -131,12 +131,6 @@
     <Compile Include="Forms\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="DashboardOLD.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DashboardOLD.Designer.cs">
-      <DependentUpon>DashboardOLD.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Inner\DashboardPlotForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,9 +171,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DashboardOLD.resx">
-      <DependentUpon>DashboardOLD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Inner\DashboardPlotForm.resx">
       <DependentUpon>DashboardPlotForm.cs</DependentUpon>
