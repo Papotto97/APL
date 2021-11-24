@@ -31,22 +31,29 @@ namespace APL_FE.Utils
             }
             else
             {
-                _url = $"{Properties.Settings.Default.R_URL}/{expression}";
-                Stream stream = _webClient.OpenRead(_url);
-                Bitmap bitmap;
-                bitmap = new Bitmap(stream);
-
-                if (bitmap != null)
+                try
                 {
-                    bitmap.Save("plot");
+                    _url = $"{Properties.Settings.Default.R_URL}/{expression}";
+                    using (Stream stream = _webClient.OpenRead(_url))
+                    {
+                        Bitmap bitmap;
+                        bitmap = new Bitmap(stream);
+
+                        if (bitmap != null)
+                        {
+                            bitmap.Save("plot");
+                        }
+                        else
+                            throw new Exception("Generic error calling API");
+
+                        return bitmap;
+                    }
                 }
-                else
-                    throw new Exception("Generic error calling API");
-
-                stream.Flush();
-                stream.Close();
-
-                return bitmap;
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return null;
+                }
 
             }
         }

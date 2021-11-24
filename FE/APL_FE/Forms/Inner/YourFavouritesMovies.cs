@@ -65,8 +65,6 @@ namespace APL_FE.Forms.Inner
 
                 Console.Out.WriteLine(JsonConvert.SerializeObject(res));
             }
-            else
-                MessageBox.Show("Please check the fields");
         }
 
         private DataGridView PrepareDataGrid(List<Favourites> results)
@@ -81,11 +79,13 @@ namespace APL_FE.Forms.Inner
             movieIdColumn.Name = "movieIdColumn";
             movieIdColumn.ReadOnly = true;
             movieIdColumn.Width = 80;
+            movieIdColumn.ValueType = typeof(string);
 
             movieTitleColumn.HeaderText = "Movie Title";
             movieTitleColumn.Name = "movieTitleColumn";
             movieTitleColumn.ReadOnly = true;
             movieTitleColumn.Width = 80;
+            movieTitleColumn.ValueType = typeof(string);
 
             var voteList = new List<string>() { "0", "1", "2", "3", "4", "5" };
             voteColumn.DataSource = voteList;
@@ -93,6 +93,7 @@ namespace APL_FE.Forms.Inner
             voteColumn.Name = "voteColumn";
             voteColumn.ReadOnly = false;
             voteColumn.Width = 80;
+            voteColumn.ValueType = typeof(string);
 
             //imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
 
@@ -159,7 +160,8 @@ namespace APL_FE.Forms.Inner
             StringBuilder messageBoxCS;
             DataGridView datagrid = (DataGridView)sender;
             string movieId = datagrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-            string vote = datagrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string title = datagrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string vote = datagrid.Rows[e.RowIndex].Cells[2].Value.ToString();
 
             if (MessageBox.Show("Do you want to update your personal rating for the selected film?", "Update personal rating", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -167,6 +169,8 @@ namespace APL_FE.Forms.Inner
                 {
                     messageBoxCS = new StringBuilder();
                     messageBoxCS.AppendFormat("{0} = {1}", "MovieId", movieId);
+                    messageBoxCS.AppendLine();
+                    messageBoxCS.AppendFormat("{0} = {1}", "Title", title);
                     messageBoxCS.AppendLine();
                     messageBoxCS.AppendFormat("{0} = {1}", "Vote", vote);
                     messageBoxCS.AppendLine();
