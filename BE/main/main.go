@@ -121,6 +121,18 @@ func handleAddFavourites(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"msg": string})
 
 }
+func handleInsertSearch(c *gin.Context) {
+	var search models.Searches
+	if err := c.ShouldBindJSON(&search); err != nil {
+		log.Print(err)
+		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
+		return
+	}
+	string := services.InsertNewSearch(&search)
+
+	c.JSON(http.StatusOK, gin.H{"msg": string})
+
+}
 func handleAddGetAllFavouritesByUser(c *gin.Context) {
 	username := c.Query("username")
 	if len(username) == 0 {
@@ -153,6 +165,8 @@ func main() {
 	//favourites routes
 	r.PUT("/favourites/", handleAddFavourites)
 	r.GET("/favourites/", handleAddGetAllFavouritesByUser)
+	//searches routes
+	r.PUT("/search/", handleInsertSearch)
 
 	r.Run("localhost:8081")
 }
