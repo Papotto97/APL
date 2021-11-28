@@ -54,6 +54,18 @@ func FindUserByUsername(username string) (user models.User) {
 	}
 	return user
 }
+func FindUserByUsernameAndPassword(username string, password string) (user models.User) {
+
+	client, ctx, cancel := config.GetConnection()
+	defer cancel()
+	defer client.Disconnect(ctx)
+
+	err := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"username", username}, {"password", password}}).Decode(&user)
+	if err != nil {
+		return models.User{}
+	}
+	return user
+}
 func FindUserByEmail(email string) (user models.User) {
 
 	client, ctx, cancel := config.GetConnection()

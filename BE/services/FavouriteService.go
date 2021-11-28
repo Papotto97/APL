@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"unictapl/config"
 	"unictapl/models"
@@ -11,7 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func AddFavourite(favourite *models.Favourites) string {
+func AddFavourite(favourite *models.Favourites) models.ResponseDTO {
 	// var results []models.Favourites
 	var s models.Favourites
 
@@ -39,11 +38,11 @@ func AddFavourite(favourite *models.Favourites) string {
 	// }
 
 	if len(favourite.ImdbId) == 0 {
-		return "ImdbId is empty"
+		return models.ResponseDTO{"ImdbId is empty", 400}
 	}
 
 	if utils.IsUserEmpty(favourite.User) {
-		return "User can't be null"
+		return models.ResponseDTO{"User can't be null", 400}
 	}
 
 	// if favourite.PersonalRating == 0 {
@@ -55,7 +54,7 @@ func AddFavourite(favourite *models.Favourites) string {
 	// }
 
 	if utils.IsUserEmpty(FindUserByUsername(favourite.User.Username)) {
-		return "User doesn't exist on DB"
+		return models.ResponseDTO{"User doesn't exist on DB", 500}
 	}
 
 	res := client.Database("APL").Collection("Favourites").FindOne(ctx, bson.D{{"imdbId", favourite.ImdbId}, {"user", favourite.User}})
@@ -64,17 +63,56 @@ func AddFavourite(favourite *models.Favourites) string {
 		_, err := client.Database("APL").Collection("Favourites").InsertOne(ctx, favourite)
 		if err != nil {
 			log.Printf("Could not add Favourite: %v", err)
-			return "Could not add Favourite"
+			return models.ResponseDTO{"Could not add Favourite", 500}
 		}
 
-		return "Favourite correctly added"
+		return models.ResponseDTO{"Favourite correctly added", 200}
 
 	} else {
-		return "Movie already added to favourites and rated: " + fmt.Sprintf("%f", s.PersonalRating)
+		return models.ResponseDTO{"Movie already added to favourites", 500}
 	}
 
 }
+func UpdateFavourite(favourite *models.Favourites) models.ResponseDTO {
+	var s models.Favourites
 
+	client, ctx, cancel := config.GetConnection()
+	defer cancel()
+	defer client.Disconnect(ctx)
+
+	if len(favourite.ImdbId) == 0 {
+		return models.ResponseDTO{"ImdbId is empty", 400}
+	}
+
+	if utils.IsUserEmpty(favourite.User) {
+		return models.ResponseDTO{"User can't be null", 400}
+	}
+
+	if favourite.PersonalRating == 0 {
+		return models.ResponseDTO{"Personal Rating can't be 0", 400}
+	}
+
+	if utils.IsUserEmpty(FindUserByUsername(favourite.User.Username)) {
+		return models.ResponseDTO{"User doesn't exist on DB", 500}
+	}
+
+	res := client.Database("APL").Collection("Favourites").FindOne(ctx, bson.D{{"imdbId", favourite.ImdbId}, {"user", favourite.User}})
+	res.Decode(&s)
+	if utils.IsFavouriteEmpty(s) {
+		filter := bson.D{{"imdbId", favourite.ImdbId}, {"user", favourite.User}}
+		_, err := client.Database("APL").Collection("Favourites").UpdateOne(ctx, filter, favourite)
+		if err != nil {
+			log.Printf("Could not add Favourite: %v", err)
+			return models.ResponseDTO{"Could not add Favourite", 500}
+		}
+
+		return models.ResponseDTO{"Favourite correctly added", 200}
+
+	} else {
+		return models.ResponseDTO{"Movie already added to favourites", 500}
+	}
+
+}
 func FindAllFavouritesByUsername(username string) (favourites []models.Favourites) {
 	var results []models.Favourites
 

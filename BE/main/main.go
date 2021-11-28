@@ -40,6 +40,26 @@ func handleGetUserByUsername(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"user": user})
 
 }
+func handleGetUserByUsernameAndPassword(c *gin.Context) {
+	username := c.Param("username")
+	password := c.Param("password")
+	if len(username) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "username not populated"})
+		return
+	}
+	if len(password) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "password not populated"})
+		return
+	}
+
+	user := services.FindUserByUsernameAndPassword(username, password)
+	if (models.User{}) == user {
+		c.JSON(http.StatusNotFound, gin.H{"msg": "User not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"user": user})
+
+}
 func handleGetUserByEmail(c *gin.Context) {
 	email := c.Param("email")
 	if len(email) == 0 {
@@ -113,12 +133,18 @@ func handleAddFavourites(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
-	string := services.AddFavourite(&favourite)
+	response := services.AddFavourite(&favourite)
+	if response.Status == 500 {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 200 {
+		c.JSON(http.StatusOK, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 400 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": response.ErrorMessage})
+	}
 	//if len(err) == 0 {
 	//	c.JSON(http.StatusInternalServerError, gin.H{"msg": err})
 	//	return
 	//}
-	c.JSON(http.StatusOK, gin.H{"msg": string})
 
 }
 func handleGetAllFavouritesByUsername(c *gin.Context) {
@@ -137,6 +163,27 @@ func handleGetAllFavouritesByUsername(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"favourites": favourites})
 
 }
+func handleUpdateFavourites(c *gin.Context) {
+	var favourite models.Favourites
+	if err := c.ShouldBindJSON(&favourite); err != nil {
+		log.Print(err)
+		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
+		return
+	}
+	response := services.UpdateFavourite(&favourite)
+	if response.Status == 500 {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 200 {
+		c.JSON(http.StatusOK, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 400 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": response.ErrorMessage})
+	}
+	//if len(err) == 0 {
+	//	c.JSON(http.StatusInternalServerError, gin.H{"msg": err})
+	//	return
+	//}
+}
+
 func handleInsertSearch(c *gin.Context) {
 	var search models.Searches
 	if err := c.ShouldBindJSON(&search); err != nil {
@@ -144,9 +191,28 @@ func handleInsertSearch(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
-	string := services.InsertNewSearch(&search)
+	response := services.InsertNewSearch(&search)
+	if response.Status == 500 {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 400 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 200 {
+		c.JSON(http.StatusOK, gin.H{"msg": response.ErrorMessage})
+	}
 
-	c.JSON(http.StatusOK, gin.H{"msg": string})
+}
+func handleGetSearchByImdbId(c *gin.Context) {
+	imdbId := c.Param("imdbId")
+	if len(imdbId) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "imdbId not populated"})
+		return
+	}
+	search := services.GetSearchByImdbId(imdbId)
+	if (models.Searches{}) == search {
+		c.JSON(http.StatusNotFound, gin.H{"msg": "Search not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"msg": search})
 
 }
 
@@ -160,13 +226,16 @@ func main() {
 	//users routes
 	r.PUT("/user/", handleCreateUser)
 	r.GET("/users/username/:username", handleGetUserByUsername)
+	r.GET("/users/username/:username/:password", handleGetUserByUsernameAndPassword)
 	r.GET("/users/email/:email", handleGetUserByEmail)
 	r.GET("/users/all", handleGetAllUsers)
 	//favourites routes
 	r.PUT("/favourite/", handleAddFavourites)
+	r.POST("/favourite/", handleUpdateFavourites)
 	r.GET("/favourites/:username", handleGetAllFavouritesByUsername)
 	//searches routes
 	r.PUT("/search/", handleInsertSearch)
+	r.GET("/search/:imdbId", handleGetSearchByImdbId)
 
 	r.Run("localhost:8081")
 }
