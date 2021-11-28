@@ -3,11 +3,12 @@ package services
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
 	"log"
 	"unictapl/config"
 	"unictapl/models"
 	"unictapl/utils"
+
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func AddFavourite(favourite *models.Favourites) string {
@@ -18,7 +19,7 @@ func AddFavourite(favourite *models.Favourites) string {
 	defer cancel()
 	defer client.Disconnect(ctx)
 	if favourite.Id == 0 {
-		result, err := client.Database("unictapl").Collection("favourites").Find(ctx, bson.D{})
+		result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{})
 		if err != nil {
 			log.Fatal(err)
 			return "Cannot set Id"
@@ -53,14 +54,14 @@ func AddFavourite(favourite *models.Favourites) string {
 		return "Movie doesn't exist on DB"
 	}
 
-	if utils.IsUserEmpty(FindUserById(favourite.User.UserId)) {
+	if utils.IsUserEmpty(FindUserByUsername(favourite.User.Username)) {
 		return "User doesn't exist on DB"
 	}
 
-	res := client.Database("unictapl").Collection("favourites").FindOne(ctx, bson.D{{"imdbId", favourite.ImdbId}, {"user", favourite.User}})
+	res := client.Database("APL").Collection("Favourites").FindOne(ctx, bson.D{{"imdbId", favourite.ImdbId}, {"user", favourite.User}})
 	res.Decode(&s)
 	if utils.IsFavouriteEmpty(s) {
-		_, err := client.Database("unictapl").Collection("favourites").InsertOne(ctx, favourite)
+		_, err := client.Database("APL").Collection("Favourites").InsertOne(ctx, favourite)
 		if err != nil {
 			log.Printf("Could not add Rating: %v", err)
 			return "Could not add Rating"
@@ -81,7 +82,7 @@ func FindAllFavouritesByUser(userId int) (favourites []models.Favourites) {
 	defer cancel()
 	defer client.Disconnect(ctx)
 
-	result, err := client.Database("unictapl").Collection("favourites").Find(ctx, bson.D{{"user.userId", userId}})
+	result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{{"user.userId", userId}})
 	if err != nil {
 		log.Fatal(err)
 		return results

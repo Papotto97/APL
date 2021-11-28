@@ -2,13 +2,14 @@ package services
 
 import (
 	"context"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"math/rand"
 	"unictapl/config"
 	"unictapl/models"
 	"unictapl/utils"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func CreateMovie(movie *models.Movie) (primitive.ObjectID, string) {
@@ -21,10 +22,10 @@ func CreateMovie(movie *models.Movie) (primitive.ObjectID, string) {
 		movie.ImdbId = RandomString(10)
 	}
 
-	res := client.Database("unictapl").Collection("movies").FindOne(ctx, bson.D{{"imdbId", movie.ImdbId}})
+	res := client.Database("APL").Collection("Movies").FindOne(ctx, bson.D{{"imdbId", movie.ImdbId}})
 	res.Decode(&s)
 	if utils.IsMovieEmpty(s) {
-		result, err := client.Database("unictapl").Collection("movies").InsertOne(ctx, movie)
+		result, err := client.Database("APL").Collection("Movies").InsertOne(ctx, movie)
 		if err != nil {
 			log.Printf("Could not create Movie: %v", err)
 			return result.InsertedID.(primitive.ObjectID), "Could not create Movie"
@@ -43,7 +44,7 @@ func FindMovieById(movieId string) (movie models.Movie) {
 	defer cancel()
 	defer client.Disconnect(ctx)
 
-	err := client.Database("unictapl").Collection("movies").FindOne(ctx, bson.D{{"imdbId", movieId}}).Decode(&movie)
+	err := client.Database("APL").Collection("Movies").FindOne(ctx, bson.D{{"imdbId", movieId}}).Decode(&movie)
 	if err != nil {
 		return models.Movie{}
 	}
@@ -56,7 +57,7 @@ func FindAllMovies() (movies []models.Movie) {
 	defer cancel()
 	defer client.Disconnect(ctx)
 
-	result, err := client.Database("unictapl").Collection("movies").Find(ctx, bson.D{})
+	result, err := client.Database("APL").Collection("Movies").Find(ctx, bson.D{})
 	if err != nil {
 		log.Fatal(err)
 		return results

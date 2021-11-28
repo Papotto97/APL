@@ -3,10 +3,11 @@ package config
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"time"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const (
@@ -18,13 +19,12 @@ const (
 //MongoDB getConnection function
 func GetConnection() (*mongo.Client, context.Context, context.CancelFunc) {
 	//username := os.Getenv("MONGODB_USERNAME")
-	username := "localhost"
-	log.Printf(username)
 	//password := os.Getenv("MONGODB_PASSWORD")
-	password := "27017"
-	log.Printf(password)
+	hostname := "localhost"
+	port := "27017"
+	log.Printf(port)
 
-	connectionURI := fmt.Sprintf(connectionStringTemplate, username, password)
+	connectionURI := fmt.Sprintf(connectionStringTemplate, hostname, port)
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(connectionURI))
 	if err != nil {

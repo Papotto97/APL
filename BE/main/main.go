@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"strconv"
 	"unictapl/models"
 	"unictapl/services"
 	"unictapl/utils"
+
+	"github.com/gin-gonic/gin"
 )
 
 func handleGetMovie(c *gin.Context) {
@@ -23,22 +24,6 @@ func handleGetMovie(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"movie": movie})
-
-}
-func handleGetUserById(c *gin.Context) {
-	userIdStr := c.Query("userId")
-	if len(userIdStr) == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"msg": "userId not populated"})
-		return
-	}
-	userId, _ := strconv.Atoi(userIdStr)
-
-	user := services.FindUserById(userId)
-	if (models.User{}) == user {
-		c.JSON(http.StatusNotFound, gin.H{"msg": "User not found"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"user": user})
 
 }
 func handleGetUserByUsername(c *gin.Context) {
@@ -164,7 +149,6 @@ func main() {
 	r.GET("/movies/all", handleGetAllMovies)
 	//users routes
 	r.PUT("/user/", handleCreateUser)
-	r.GET("/users/id", handleGetUserById)
 	r.GET("/users/username/:username", handleGetUserByUsername)
 	r.GET("/users/email/:email", handleGetUserByEmail)
 	r.GET("/users/all", handleGetAllUsers)
