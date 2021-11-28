@@ -20,12 +20,12 @@ namespace APL_FE.DAO
             _collection = database.GetCollection<Favourites>(_collectionName);
         }
 
-        public Favourites GetFavouriteByMovieIdAndUser(string movieId, string username)
+        public Favourites GetFavouriteByMovieIdAndUser(string movieId, User user)
         {
 
             try
             {
-                var res = _collection.Find(search => search.User.Equals(username) && search.MovieId.Equals(movieId)).FirstOrDefault();
+                var res = _collection.Find(search => search.User.Equals(user.Username) && search.ImdbId.Equals(movieId)).FirstOrDefault();
                 Console.WriteLine(res);
                 return res;
             }
@@ -35,7 +35,7 @@ namespace APL_FE.DAO
             }
         }
 
-        public List<Favourites> GetFavourites(string username)
+        public List<Favourites> GetFavourites(User user)
         {
 
             //BsonDocument filter = new BsonDocument();
@@ -43,7 +43,7 @@ namespace APL_FE.DAO
 
             try
             {
-                var res = _collection.Find(search => search.User.Equals(username)).ToList();
+                var res = _collection.Find(search => search.User.Equals(user.Username)).ToList();
                 Console.WriteLine(res);
                 return res;
             }
@@ -53,15 +53,15 @@ namespace APL_FE.DAO
             }
         }
 
-        public bool InsertNewFavourite(string movieId, string username)
+        public bool InsertNewFavourite(string movieId, User user)
         {
 
             try
             {
                 _collection.InsertOne(new Favourites
                 {
-                    MovieId = movieId,
-                    User = username
+                    ImdbId = movieId,
+                    User = user
                 });
                 return true;
             }
@@ -71,7 +71,7 @@ namespace APL_FE.DAO
             }
         }
 
-        public bool UpdateFavourite(string movieId, string username, string personalVote)
+        public bool UpdateFavourite(string movieId, User user, string personalVote)
         {
 
             try
@@ -84,7 +84,7 @@ namespace APL_FE.DAO
                 //};
 
                 var update = Builders<Favourites>.Update.Set("personalVote", personalVote);
-                _collection.UpdateOne(fav => fav.MovieId.Equals(movieId) && fav.User.Equals(username), update);
+                _collection.UpdateOne(fav => fav.ImdbId.Equals(movieId) && fav.User.Equals(user.Username), update);
                 return true;
             }
             catch (Exception)
@@ -92,6 +92,79 @@ namespace APL_FE.DAO
                 return false;
             }
         }
+
+        //public Favourites GetFavouriteByMovieIdAndUser(string movieId, string username)
+        //{
+
+        //    try
+        //    {
+        //        var res = _collection.Find(search => search.User.Equals(username) && search.MovieId.Equals(movieId)).FirstOrDefault();
+        //        Console.WriteLine(res);
+        //        return res;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        //public List<Favourites> GetFavourites(string username)
+        //{
+
+        //    //BsonDocument filter = new BsonDocument();
+        //    //filter.Add("username", username).Add("password", password);
+
+        //    try
+        //    {
+        //        var res = _collection.Find(search => search.User.Equals(username)).ToList();
+        //        Console.WriteLine(res);
+        //        return res;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        //public bool InsertNewFavourite(string movieId, string username)
+        //{
+
+        //    try
+        //    {
+        //        _collection.InsertOne(new Favourites
+        //        {
+        //            MovieId = movieId,
+        //            User = username
+        //        });
+        //        return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //public bool UpdateFavourite(string movieId, string username, string personalVote)
+        //{
+
+        //    try
+        //    {
+        //        //var update = new Favourites
+        //        //{
+        //        //    MovieId = movieId,
+        //        //    PersonalVote = personalVote,
+        //        //    User = username
+        //        //};
+
+        //        var update = Builders<Favourites>.Update.Set("personalVote", personalVote);
+        //        _collection.UpdateOne(fav => fav.MovieId.Equals(movieId) && fav.User.Equals(username), update);
+        //        return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //}
 
     }
 }

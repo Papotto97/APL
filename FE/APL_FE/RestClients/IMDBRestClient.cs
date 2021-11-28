@@ -1,16 +1,11 @@
-﻿using APL_FE.Models.Entities;
+﻿using APL_FE.Utils;
 using APL_FE.Utils.IMDB.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
-namespace APL_FE.Utils.IMDB
+namespace APL_FE.RestClients
 {
     public class IMDBRestClient
     {
@@ -38,14 +33,14 @@ namespace APL_FE.Utils.IMDB
                 else
                 {
                     //EXAMPLE https://imdb-api.com/en/API/SearchMovie/k_12345678/leon the professional
-                    _url = $"{Properties.Settings.Default.IMDB_APIURL}/{APIEnum.SearchMovie}/{Properties.Settings.Default.IMDB_APIKEY}/{expression}";
+                    _url = $"{Properties.Settings.Default.IMDB_APIURL}/{IMDBAPIEnum.SearchMovie}/{Properties.Settings.Default.IMDB_APIKEY}/{expression}";
                     string json;
 
 #if DEBUG
                     Console.WriteLine("Debug version");
                     string workingDirectory = Environment.CurrentDirectory;
                     string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-                    using (StreamReader r = new StreamReader(projectDirectory+"\\APL_FE\\Resources\\Movies.json"))
+                    using (StreamReader r = new StreamReader(projectDirectory + "\\APL_FE\\Resources\\Movies.json"))
                     {
                         json = r.ReadToEnd();
                         if (string.IsNullOrEmpty(json))

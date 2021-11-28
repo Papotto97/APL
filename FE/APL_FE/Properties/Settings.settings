@@ -14,5 +14,8 @@
     <Setting Name="R_URL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost:7414</Value>
     </Setting>
+    <Setting Name="BE_URI" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8081</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

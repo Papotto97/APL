@@ -1,14 +1,6 @@
-﻿using APL_FE.DAO;
-using APL_FE.Models;
-using APL_FE.Models.Entities;
-using APL_FE.Utils;
-using APL_FE.Utils.IMDB;
-using APL_FE.Utils.IMDB.Models;
-using Newtonsoft.Json;
+﻿using APL_FE.RestClients;
 using System;
 using System.Drawing;
-using System.Net;
-using System.Text;
 using System.Windows.Forms;
 
 namespace APL_FE.Forms.Inner

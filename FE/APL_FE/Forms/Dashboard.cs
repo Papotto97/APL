@@ -1,7 +1,5 @@
-﻿using APL_FE.DAO;
-using APL_FE.Forms.Inner;
+﻿using APL_FE.Forms.Inner;
 using APL_FE.Models;
-using APL_FE.Utils.IMDB;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -11,8 +9,8 @@ namespace APL_FE.Forms
 {
     public partial class Dashboard : Form
     {
-        private IMDBRestClient _restClient;
-        private SearchesDAO _searchesDAO;
+        //private IMDBRestClient _restClient;
+        //private SearchesDAO _searchesDAO;
 
         private int tolerance = 15;
         private const int WM_NCHITTEST = 132;
@@ -25,8 +23,8 @@ namespace APL_FE.Forms
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.DoubleBuffered = true;
 
-            _restClient = new IMDBRestClient();
-            _searchesDAO = new SearchesDAO();
+            //_restClient = new IMDBRestClient();
+            //_searchesDAO = new SearchesDAO();
 
             dashboardButton_Click(this, EventArgs.Empty);
 
@@ -84,7 +82,7 @@ namespace APL_FE.Forms
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            loggedUser.Text = UserInfo.loggedUsername;
+            loggedUser.Text = UserInfo.loggedUser.Username;
             loggedUser.Visible = true;
 
             //panelFormCentral.Hide();

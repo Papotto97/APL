@@ -1,6 +1,6 @@
-﻿using APL_FE.DAO;
-using APL_FE.Models;
+﻿using APL_FE.Models;
 using APL_FE.Models.Entities;
+using APL_FE.RestClients;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,8 +12,9 @@ namespace APL_FE.Forms.Inner
 {
     public partial class YourFavouritesMovies : Form
     {
-        private readonly SearchesDAO _searchesDAO;
-        private readonly FavouritesDAO _favouritesDAO;
+        //private readonly SearchesDAO _searchesDAO;
+        //private readonly FavouritesDAO _favouritesDAO;
+        private readonly BERestClient _restClientBE;
 
         private readonly Dashboard _parentForm;
 
@@ -23,8 +24,9 @@ namespace APL_FE.Forms.Inner
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.DoubleBuffered = true;
 
-            _searchesDAO = new SearchesDAO();
-            _favouritesDAO = new FavouritesDAO();
+            //_searchesDAO = new SearchesDAO();
+            //_favouritesDAO = new FavouritesDAO();
+            _restClientBE = new BERestClient();
 
             _parentForm = (Dashboard)parent;
         }
@@ -35,7 +37,8 @@ namespace APL_FE.Forms.Inner
 
         private void showFavourites_Click(object sender, EventArgs e)
         {
-            var res = _favouritesDAO.GetFavourites(UserInfo.loggedUsername);
+            //var res = _favouritesDAO.GetFavourites(UserInfo.loggedUser);
+            var res = _restClientBE.GetFavouritesByUser(UserInfo.loggedUser);
 
             DataGridView dataGridView = PrepareDataGrid(res);
 
@@ -54,9 +57,10 @@ namespace APL_FE.Forms.Inner
                     //Bitmap bmp = new Bitmap(myResponse.GetResponseStream());
                     //myResponse.Close();
 
-                    var title = _searchesDAO.GetSearchByMovieId(item.MovieId);
+                    //var title = _searchesDAO.GetSearchByMovieId(item.ImdbId);
+                    var title = _restClientBE.GetSearchByMovieId(item.ImdbId);
 
-                    dataGridView.Rows.Add(item.MovieId, title?.MovieTitle, item.PersonalVote);
+                    dataGridView.Rows.Add(item.ImdbId, title?.MovieTitle, item.PersonalRating);
                 }
 
                 //dataGridView.Show();
@@ -165,14 +169,15 @@ namespace APL_FE.Forms.Inner
 
             if (MessageBox.Show("Do you want to update your personal rating for the selected film?", "Update personal rating", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (_favouritesDAO.UpdateFavourite(movieId, UserInfo.loggedUsername, vote))
+                //if (_favouritesDAO.UpdateFavourite(movieId, UserInfo.loggedUser, vote))
+                if (_restClientBE.UpdateFavourite(new Favourites { ImdbId = movieId, User = UserInfo.loggedUser, PersonalRating = vote }))
                 {
                     messageBoxCS = new StringBuilder();
                     messageBoxCS.AppendFormat("{0} = {1}", "MovieId", movieId);
                     messageBoxCS.AppendLine();
                     messageBoxCS.AppendFormat("{0} = {1}", "Title", title);
                     messageBoxCS.AppendLine();
-                    messageBoxCS.AppendFormat("{0} = {1}", "Vote", vote);
+                    messageBoxCS.AppendFormat("{0} = {1}", "Rating", vote);
                     messageBoxCS.AppendLine();
                     MessageBox.Show(messageBoxCS.ToString(), "Added");
                 }

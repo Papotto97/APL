@@ -1,12 +1,10 @@
-﻿using APL_FE.DAO;
-using APL_FE.Models;
+﻿using APL_FE.Models;
 using APL_FE.Models.Entities;
-using APL_FE.Utils.IMDB;
+using APL_FE.RestClients;
 using APL_FE.Utils.IMDB.Models;
 using Newtonsoft.Json;
 using System;
 using System.Drawing;
-using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,9 +12,10 @@ namespace APL_FE.Forms.Inner
 {
     public partial class SearchFilmsForm : Form
     {
-        private IMDBRestClient _restClient;
-        private SearchesDAO _searchesDAO;
-        private FavouritesDAO _favouritesDAO;
+        private readonly IMDBRestClient _restClientIMDB;
+        private readonly BERestClient _restClientBE;
+        //private readonly SearchesDAO _searchesDAO;
+        //private FavouritesDAO _favouritesDAO;
 
         private readonly Dashboard _parentForm;
 
@@ -26,9 +25,10 @@ namespace APL_FE.Forms.Inner
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.DoubleBuffered = true;
 
-            _restClient = new IMDBRestClient();
-            _searchesDAO = new SearchesDAO();
-            _favouritesDAO = new FavouritesDAO();
+            _restClientIMDB = new IMDBRestClient();
+            _restClientBE = new BERestClient();
+            //_searchesDAO = new SearchesDAO();
+            //_favouritesDAO = new FavouritesDAO();
 
             _parentForm = (Dashboard)parent;
         }
@@ -39,7 +39,7 @@ namespace APL_FE.Forms.Inner
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            var res = _restClient.SearchMovie(movieName.Text);
+            var res = _restClientIMDB.SearchMovie(movieName.Text);
 
             DataGridView dataGridView = PrepareDataGrid(res);
 
@@ -51,13 +51,22 @@ namespace APL_FE.Forms.Inner
 
                 foreach (var item in res.Results)
                 {
-                    _searchesDAO.InsertNewSearch(new UserSearches
+                    //_searchesDAO.InsertNewSearch(new UserSearches
+                    //{
+                    //    ErrorMessage = res.ErrorMessage,
+                    //    MovieId = item.Id,
+                    //    MovieTitle = item.Title,
+                    //    SearchType = res.SearchType,
+                    //    User = UserInfo.loggedUser.Username,
+                    //    Expression = movieName.Text
+                    //});
+                    _restClientBE.InsertNewSearch(new UserSearches
                     {
                         ErrorMessage = res.ErrorMessage,
                         MovieId = item.Id,
                         MovieTitle = item.Title,
                         SearchType = res.SearchType,
-                        User = UserInfo.loggedUsername,
+                        User = UserInfo.loggedUser,
                         Expression = movieName.Text
                     });
 
@@ -176,11 +185,13 @@ namespace APL_FE.Forms.Inner
             DataGridView datagrid = (DataGridView)sender;
             string movieId = datagrid.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-            if (_favouritesDAO.GetFavouriteByMovieIdAndUser(movieId, UserInfo.loggedUsername) == null)
+            //if (_favouritesDAO.GetFavouriteByMovieIdAndUser(movieId, UserInfo.loggedUser) == null)
+            if (_restClientBE.GetFavouriteByMovieIdAndUser(movieId, UserInfo.loggedUser) == null)
             {
                 if (MessageBox.Show("The selected film is not among your favorites, do you want to add it?", "Add movies to your favorites", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    if (_favouritesDAO.InsertNewFavourite(movieId, UserInfo.loggedUsername))
+                    //if (_favouritesDAO.InsertNewFavourite(movieId, UserInfo.loggedUser))
+                    if (_restClientBE.InsertFavourite(new Favourites { ImdbId = movieId, User = UserInfo.loggedUser }))
                     {
                         messageBoxCS = new StringBuilder();
                         messageBoxCS.AppendFormat("{0} = {1}", "MovieId", movieId);

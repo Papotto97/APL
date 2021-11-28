@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 
-namespace APL_FE.Utils
+namespace APL_FE.RestClients
 {
     public class RModuleRestClient
     {

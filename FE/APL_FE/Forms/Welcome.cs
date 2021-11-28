@@ -1,5 +1,5 @@
-﻿using APL_FE.DAO;
-using APL_FE.Models;
+﻿using APL_FE.Models;
+using APL_FE.RestClients;
 using System;
 using System.Windows.Forms;
 
@@ -7,11 +7,15 @@ namespace APL_FE.Forms
 {
     public partial class Welcome : Form
     {
-        private UsersDAO _userDAO;
+        //private readonly UsersDAO _userDAO;
+        private readonly BERestClient _restClientBE;
+
         public Welcome()
         {
             InitializeComponent();
-            _userDAO = new UsersDAO();
+
+            //_userDAO = new UsersDAO();
+            _restClientBE = new BERestClient();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -28,11 +32,12 @@ namespace APL_FE.Forms
                 MessageBox.Show("Please check the Username and Password fields");
             else
             {
-                var user = _userDAO.GetUserByUsernameAndPassword(loginUser, passwordUser);
+                //var user = _userDAO.GetUserByUsernameAndPassword(loginUser, passwordUser);
+                var user = _restClientBE.GetUserByUsernameAndPassword(loginUser, passwordUser);
 
                 if (user != null)
                 {
-                    UserInfo.loggedUsername = user.Username;
+                    UserInfo.loggedUser = user;
 
                     Dashboard dashboard = new Dashboard();
                     this.Hide();

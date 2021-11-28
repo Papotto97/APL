@@ -59,5 +59,14 @@ namespace APL_FE.Properties {
                 return ((string)(this["R_URL"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8081")]
+        public string BE_URI {
+            get {
+                return ((string)(this["BE_URI"]));
+            }
+        }
     }
 }
