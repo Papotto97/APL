@@ -163,6 +163,27 @@ func handleGetAllFavouritesByUsername(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"favourites": favourites})
 
 }
+func handleGetAllFavouritesByUsernameAndImdbId(c *gin.Context) {
+	username := c.Param("username")
+	imdbId := c.Param("imdbId")
+	if len(username) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "username not populated"})
+		return
+	}
+	if len(imdbId) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "username not populated"})
+		return
+	}
+
+	favourites := services.FindAllFavouritesByUsernameAndImdbId(username, imdbId)
+
+	if len(favourites) == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"msg": "Favourites not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"favourites": favourites})
+
+}
 func handleUpdateFavourites(c *gin.Context) {
 	var favourite models.Favourites
 	if err := c.ShouldBindJSON(&favourite); err != nil {
@@ -233,6 +254,7 @@ func main() {
 	r.PUT("/favourite/", handleAddFavourites)
 	r.POST("/favourite/", handleUpdateFavourites)
 	r.GET("/favourites/:username", handleGetAllFavouritesByUsername)
+	r.GET("/favourites/:username/:imdbId", handleGetAllFavouritesByUsernameAndImdbId)
 	//searches routes
 	r.PUT("/search/", handleInsertSearch)
 	r.GET("/search/:imdbId", handleGetSearchByImdbId)

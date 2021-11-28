@@ -138,3 +138,28 @@ func FindAllFavouritesByUsername(username string) (favourites []models.Favourite
 	}
 	return results
 }
+func FindAllFavouritesByUsernameAndImdbId(username string, imdbId string) (favourites []models.Favourites) {
+	var results []models.Favourites
+
+	client, ctx, cancel := config.GetConnection()
+	defer cancel()
+	defer client.Disconnect(ctx)
+
+	result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{{"user.username", username}, {"imdbId", imdbId}})
+	if err != nil {
+		log.Fatal(err)
+		return results
+	}
+	for result.Next(context.TODO()) {
+		//Create a value into which the single document can be decoded
+		var favourite models.Favourites
+		err := result.Decode(&favourite)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		results = append(results, favourite)
+
+	}
+	return results
+}
