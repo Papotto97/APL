@@ -63,7 +63,7 @@ namespace APL_FE.Forms.Inner
                     _restClientBE.InsertNewSearch(new UserSearches
                     {
                         ErrorMessage = res.ErrorMessage,
-                        MovieId = item.Id,
+                        ImdbId = item.Id,
                         MovieTitle = item.Title,
                         SearchType = res.SearchType,
                         User = UserInfo.loggedUser,

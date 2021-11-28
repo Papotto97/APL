@@ -58,7 +58,7 @@ namespace APL_FE.DAO
 
             try
             {
-                var res = _collection.Find(userSearch => userSearch.MovieId == movieId).FirstOrDefault();
+                var res = _collection.Find(userSearch => userSearch.ImdbId == movieId).FirstOrDefault();
                 Console.WriteLine(res);
                 return res;
             }

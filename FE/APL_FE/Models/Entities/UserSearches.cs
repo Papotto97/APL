@@ -21,9 +21,9 @@ namespace APL_FE.Models.Entities
         [JsonProperty("expression")]
         public string Expression { get; set; }
 
-        [BsonElement("movieId")]
-        [JsonProperty("movieId")]
-        public string MovieId { get; set; }
+        [BsonElement("imdbId")]
+        [JsonProperty("imdbId")]
+        public string ImdbId { get; set; }
 
         [BsonElement("movieTitle")]
         [JsonProperty("movieTitle")]

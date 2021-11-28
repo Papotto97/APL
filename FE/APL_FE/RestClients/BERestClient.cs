@@ -83,8 +83,10 @@ namespace APL_FE.RestClients
             if (string.IsNullOrEmpty(json))
                 throw new Exception("Generic error calling API");
 
-            var res = JsonConvert.DeserializeObject<FavouriteMoviesReturn>(json);
-            return res.Favourites;
+            //var res = JsonConvert.DeserializeObject<FavouriteMoviesReturn>(json);
+            var res = JsonConvert.DeserializeObject<List<Favourites>>(json);
+            //return res.Favourites;
+            return res;
         }
 
         public List<Favourites> GetFavouriteByMovieIdAndUser(string movieId, User user)
@@ -97,17 +99,19 @@ namespace APL_FE.RestClients
             if (string.IsNullOrEmpty(json))
                 throw new Exception("Generic error calling API");
 
-            var res = JsonConvert.DeserializeObject<FavouriteMoviesReturn>(json);
+            //var res = JsonConvert.DeserializeObject<FavouriteMoviesReturn>(json);
+            var res = JsonConvert.DeserializeObject<List<Favourites>>(json);
 
-            if (res.Favourites.Any())
-                return res.Favourites;
-            return null;
+            //if (res.Favourites.Any())
+            //    return res.Favourites;
+            return res;
         }
         #endregion
 
         #region Searches API
         public bool InsertNewSearch(UserSearches search)
         {
+            _url = $"{Properties.Settings.Default.BE_URI}/{BEAPIEnum.search}";
             try
             {
                 BinaryFormatter bf = new BinaryFormatter();

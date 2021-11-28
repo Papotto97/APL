@@ -57,7 +57,7 @@ func handleGetUserByUsernameAndPassword(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "User not found"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	c.JSON(http.StatusOK, user)
 
 }
 func handleGetUserByEmail(c *gin.Context) {
@@ -160,7 +160,7 @@ func handleGetAllFavouritesByUsername(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Favourites not found"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"favourites": favourites})
+	c.JSON(http.StatusOK, favourites)
 
 }
 func handleGetAllFavouritesByUsernameAndImdbId(c *gin.Context) {
@@ -177,11 +177,11 @@ func handleGetAllFavouritesByUsernameAndImdbId(c *gin.Context) {
 
 	favourites := services.FindAllFavouritesByUsernameAndImdbId(username, imdbId)
 
-	if len(favourites) == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"msg": "Favourites not found"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"favourites": favourites})
+	// if len(favourites) == 0 {
+	// 	c.JSON(http.StatusNotFound, gin.H{"msg": "Favourites not found"})
+	// 	return
+	// }
+	c.JSON(http.StatusOK, favourites)
 
 }
 func handleUpdateFavourites(c *gin.Context) {
@@ -233,7 +233,7 @@ func handleGetSearchByImdbId(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Search not found"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"msg": search})
+	c.JSON(http.StatusOK, search)
 
 }
 
