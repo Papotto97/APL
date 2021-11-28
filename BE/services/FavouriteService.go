@@ -12,31 +12,31 @@ import (
 )
 
 func AddFavourite(favourite *models.Favourites) string {
-	var results []models.Favourites
+	// var results []models.Favourites
 	var s models.Favourites
 
 	client, ctx, cancel := config.GetConnection()
 	defer cancel()
 	defer client.Disconnect(ctx)
-	if favourite.Id == 0 {
-		result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{})
-		if err != nil {
-			log.Fatal(err)
-			return "Cannot set Id"
-		}
-		for result.Next(context.TODO()) {
-			//Create a value into which the single document can be decoded
-			var fav models.Favourites
-			err := result.Decode(&fav)
-			if err != nil {
-				log.Fatal(err)
-			}
+	// if favourite.Id == 0 {
+	// 	result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{})
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 		return "Cannot set Id"
+	// 	}
+	// 	for result.Next(context.TODO()) {
+	// 		//Create a value into which the single document can be decoded
+	// 		var fav models.Favourites
+	// 		err := result.Decode(&fav)
+	// 		if err != nil {
+	// 			log.Fatal(err)
+	// 		}
 
-			results = append(results, fav)
+	// 		results = append(results, fav)
 
-		}
-		favourite.Id = len(results)
-	}
+	// 	}
+	// 	favourite.Id = len(results)
+	// }
 
 	if len(favourite.ImdbId) == 0 {
 		return "ImdbId is empty"
@@ -46,13 +46,13 @@ func AddFavourite(favourite *models.Favourites) string {
 		return "User can't be null"
 	}
 
-	if favourite.PersonalRating == 0 {
-		return "Personal Rating can't be 0"
-	}
+	// if favourite.PersonalRating == 0 {
+	// 	return "Personal Rating can't be 0"
+	// }
 
-	if utils.IsMovieEmpty(FindMovieById(favourite.ImdbId)) {
-		return "Movie doesn't exist on DB"
-	}
+	// if utils.IsMovieEmpty(FindMovieById(favourite.ImdbId)) {
+	// 	return "Movie doesn't exist on DB"
+	// }
 
 	if utils.IsUserEmpty(FindUserByUsername(favourite.User.Username)) {
 		return "User doesn't exist on DB"
@@ -63,11 +63,11 @@ func AddFavourite(favourite *models.Favourites) string {
 	if utils.IsFavouriteEmpty(s) {
 		_, err := client.Database("APL").Collection("Favourites").InsertOne(ctx, favourite)
 		if err != nil {
-			log.Printf("Could not add Rating: %v", err)
-			return "Could not add Rating"
+			log.Printf("Could not add Favourite: %v", err)
+			return "Could not add Favourite"
 		}
 
-		return "Rating correctly added"
+		return "Favourite correctly added"
 
 	} else {
 		return "Movie already added to favourites and rated: " + fmt.Sprintf("%f", s.PersonalRating)

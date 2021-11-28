@@ -105,7 +105,7 @@ func handleCreateUser(c *gin.Context) {
 }
 
 func handleAddFavourites(c *gin.Context) {
-	log.Printf("Start creating user ")
+	log.Printf("Start creating favourite")
 
 	var favourite models.Favourites
 	if err := c.ShouldBindJSON(&favourite); err != nil {
@@ -121,20 +121,8 @@ func handleAddFavourites(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"msg": string})
 
 }
-func handleInsertSearch(c *gin.Context) {
-	var search models.Searches
-	if err := c.ShouldBindJSON(&search); err != nil {
-		log.Print(err)
-		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
-		return
-	}
-	string := services.InsertNewSearch(&search)
-
-	c.JSON(http.StatusOK, gin.H{"msg": string})
-
-}
-func handleAddGetAllFavouritesByUser(c *gin.Context) {
-	username := c.Query("username")
+func handleGetAllFavouritesByUsername(c *gin.Context) {
+	username := c.Param("username")
 	if len(username) == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": "username not populated"})
 		return
@@ -147,6 +135,18 @@ func handleAddGetAllFavouritesByUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"favourites": favourites})
+
+}
+func handleInsertSearch(c *gin.Context) {
+	var search models.Searches
+	if err := c.ShouldBindJSON(&search); err != nil {
+		log.Print(err)
+		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
+		return
+	}
+	string := services.InsertNewSearch(&search)
+
+	c.JSON(http.StatusOK, gin.H{"msg": string})
 
 }
 
@@ -163,8 +163,8 @@ func main() {
 	r.GET("/users/email/:email", handleGetUserByEmail)
 	r.GET("/users/all", handleGetAllUsers)
 	//favourites routes
-	r.PUT("/favourites/", handleAddFavourites)
-	r.GET("/favourites/", handleAddGetAllFavouritesByUser)
+	r.PUT("/favourite/", handleAddFavourites)
+	r.GET("/favourites/:username", handleGetAllFavouritesByUsername)
 	//searches routes
 	r.PUT("/search/", handleInsertSearch)
 

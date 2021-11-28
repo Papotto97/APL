@@ -12,15 +12,16 @@ import (
 
 const (
 	//Timeout settings
-	connectionTimeout        = 5
-	connectionStringTemplate = "mongodb://%s:%s/?readPreference=primary&appname=MongoDBCompass&directConnection=true&ssl=false"
+	connectionTimeout = 5
+	// connectionStringTemplate = "mongodb://%s:%s/?readPreference=primary&appname=MongoDBCompass&directConnection=true&ssl=false"
+	connectionStringTemplate = "mongodb://%s:%s/"
 )
 
 //MongoDB getConnection function
 func GetConnection() (*mongo.Client, context.Context, context.CancelFunc) {
 	//username := os.Getenv("MONGODB_USERNAME")
 	//password := os.Getenv("MONGODB_PASSWORD")
-	hostname := "localhost"
+	hostname := "127.0.0.1"
 	port := "27017"
 	log.Printf(port)
 
