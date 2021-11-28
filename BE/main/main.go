@@ -225,8 +225,8 @@ func main() {
 	r.GET("/movies/all", handleGetAllMovies)
 	//users routes
 	r.PUT("/user/", handleCreateUser)
-	r.GET("/users/username/:username", handleGetUserByUsername)
-	r.GET("/users/username/:username/:password", handleGetUserByUsernameAndPassword)
+	r.GET("/user/:username", handleGetUserByUsername)
+	r.GET("/user/:username/:password", handleGetUserByUsernameAndPassword)
 	r.GET("/users/email/:email", handleGetUserByEmail)
 	r.GET("/users/all", handleGetAllUsers)
 	//favourites routes
