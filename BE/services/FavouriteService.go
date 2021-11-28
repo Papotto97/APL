@@ -75,14 +75,14 @@ func AddFavourite(favourite *models.Favourites) string {
 
 }
 
-func FindAllFavouritesByUser(userId int) (favourites []models.Favourites) {
+func FindAllFavouritesByUsername(username string) (favourites []models.Favourites) {
 	var results []models.Favourites
 
 	client, ctx, cancel := config.GetConnection()
 	defer cancel()
 	defer client.Disconnect(ctx)
 
-	result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{{"user.userId", userId}})
+	result, err := client.Database("APL").Collection("Favourites").Find(ctx, bson.D{{"user.username", username}})
 	if err != nil {
 		log.Fatal(err)
 		return results

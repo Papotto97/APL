@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"strconv"
 	"unictapl/models"
 	"unictapl/services"
 	"unictapl/utils"
@@ -123,14 +122,13 @@ func handleAddFavourites(c *gin.Context) {
 
 }
 func handleAddGetAllFavouritesByUser(c *gin.Context) {
-	userIdStr := c.Query("userId")
-	if len(userIdStr) == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"msg": "userId not populated"})
+	username := c.Query("username")
+	if len(username) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "username not populated"})
 		return
 	}
-	userId, _ := strconv.Atoi(userIdStr)
 
-	favourites := services.FindAllFavouritesByUser(userId)
+	favourites := services.FindAllFavouritesByUsername(username)
 
 	if len(favourites) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Favourites not found"})
