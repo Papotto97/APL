@@ -11,7 +11,7 @@ import (
 )
 
 func CreateUser(user *models.User) models.ResponseDTO {
-	// var s models.User
+	var s models.User
 	var r models.User
 
 	client, ctx, cancel := config.GetConnection()
@@ -21,11 +21,11 @@ func CreateUser(user *models.User) models.ResponseDTO {
 		user.Username = RandomUsername(user.Email)
 	}
 
-	// res := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"email", user.Email}})
-	// res.Decode(&s)
-	// if user.Email == s.Email {
-	// 	return models.ResponseDTO{"Email already used", 400}
-	// }
+	res := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"email", user.Email}})
+	res.Decode(&s)
+	if user.Email == s.Email {
+		return models.ResponseDTO{"Email already used", 400}
+	}
 
 	ris := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"username", user.Username}})
 	ris.Decode(&r)

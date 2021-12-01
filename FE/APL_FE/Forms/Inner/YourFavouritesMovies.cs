@@ -40,7 +40,7 @@ namespace APL_FE.Forms.Inner
             //var res = _favouritesDAO.GetFavourites(UserInfo.loggedUser);
             var res = _restClientBE.GetFavouritesByUser(UserInfo.loggedUser);
 
-            DataGridView dataGridView = PrepareDataGrid(res);
+            DataGridView dataGridView = PrepareDataGrid();
 
             if (dataGridView.RowCount != 0)
                 dataGridView.Rows.Clear();
@@ -71,7 +71,7 @@ namespace APL_FE.Forms.Inner
             }
         }
 
-        private DataGridView PrepareDataGrid(List<Favourites> results)
+        private DataGridView PrepareDataGrid()
         {
             DataGridView dataGridView1 = new DataGridView();
             DataGridViewTextBoxColumn movieIdColumn = new DataGridViewTextBoxColumn();

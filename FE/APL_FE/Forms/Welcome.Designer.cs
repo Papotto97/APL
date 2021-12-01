@@ -41,6 +41,12 @@ namespace APL_FE.Forms
             this.passwordLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkLoginShowPassword = new System.Windows.Forms.CheckBox();
+            this.nameLabel = new System.Windows.Forms.Label();
+            this.emailLabel = new System.Windows.Forms.Label();
+            this.nameField = new System.Windows.Forms.TextBox();
+            this.emailField = new System.Windows.Forms.TextBox();
+            this.surnameLabel = new System.Windows.Forms.Label();
+            this.surnameField = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,10 +61,10 @@ namespace APL_FE.Forms
             this.signin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signin.ForeColor = System.Drawing.Color.White;
             this.signin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.signin.Location = new System.Drawing.Point(15, 234);
+            this.signin.Location = new System.Drawing.Point(46, 319);
             this.signin.Name = "signin";
             this.signin.Size = new System.Drawing.Size(134, 38);
-            this.signin.TabIndex = 4;
+            this.signin.TabIndex = 7;
             this.signin.Text = "Sign in";
             this.signin.UseVisualStyleBackColor = false;
             this.signin.Click += new System.EventHandler(this.SigninButton_Click);
@@ -74,10 +80,10 @@ namespace APL_FE.Forms
             this.signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signup.ForeColor = System.Drawing.Color.White;
             this.signup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.signup.Location = new System.Drawing.Point(155, 234);
+            this.signup.Location = new System.Drawing.Point(186, 319);
             this.signup.Name = "signup";
             this.signup.Size = new System.Drawing.Size(134, 38);
-            this.signup.TabIndex = 5;
+            this.signup.TabIndex = 8;
             this.signup.Text = "Sign up";
             this.signup.UseVisualStyleBackColor = false;
             this.signup.Click += new System.EventHandler(this.SignupButton_Click);
@@ -118,7 +124,7 @@ namespace APL_FE.Forms
             // usernameField
             // 
             this.usernameField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.usernameField.Location = new System.Drawing.Point(100, 153);
+            this.usernameField.Location = new System.Drawing.Point(100, 133);
             this.usernameField.Name = "usernameField";
             this.usernameField.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.usernameField.Size = new System.Drawing.Size(189, 22);
@@ -127,7 +133,7 @@ namespace APL_FE.Forms
             // passwordField
             // 
             this.passwordField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.passwordField.Location = new System.Drawing.Point(100, 186);
+            this.passwordField.Location = new System.Drawing.Point(100, 166);
             this.passwordField.Name = "passwordField";
             this.passwordField.Size = new System.Drawing.Size(189, 22);
             this.passwordField.TabIndex = 2;
@@ -137,7 +143,7 @@ namespace APL_FE.Forms
             // 
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.usernameLabel.Location = new System.Drawing.Point(12, 159);
+            this.usernameLabel.Location = new System.Drawing.Point(12, 139);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(83, 16);
             this.usernameLabel.TabIndex = 15;
@@ -147,7 +153,7 @@ namespace APL_FE.Forms
             // 
             this.passwordLabel.AutoSize = true;
             this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.passwordLabel.Location = new System.Drawing.Point(12, 192);
+            this.passwordLabel.Location = new System.Drawing.Point(12, 172);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(80, 16);
             this.passwordLabel.TabIndex = 15;
@@ -169,13 +175,68 @@ namespace APL_FE.Forms
             this.checkLoginShowPassword.AutoSize = true;
             this.checkLoginShowPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.checkLoginShowPassword.ForeColor = System.Drawing.Color.Black;
-            this.checkLoginShowPassword.Location = new System.Drawing.Point(294, 188);
+            this.checkLoginShowPassword.Location = new System.Drawing.Point(294, 168);
             this.checkLoginShowPassword.Name = "checkLoginShowPassword";
             this.checkLoginShowPassword.Size = new System.Drawing.Size(64, 20);
             this.checkLoginShowPassword.TabIndex = 3;
             this.checkLoginShowPassword.Text = "Show";
             this.checkLoginShowPassword.UseVisualStyleBackColor = true;
             this.checkLoginShowPassword.CheckedChanged += new System.EventHandler(this.CheckLoginShowPassword_CheckedChanged);
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.nameLabel.Location = new System.Drawing.Point(12, 237);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(53, 16);
+            this.nameLabel.TabIndex = 23;
+            this.nameLabel.Text = "Name:";
+            // 
+            // emailLabel
+            // 
+            this.emailLabel.AutoSize = true;
+            this.emailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.emailLabel.Location = new System.Drawing.Point(12, 204);
+            this.emailLabel.Name = "emailLabel";
+            this.emailLabel.Size = new System.Drawing.Size(51, 16);
+            this.emailLabel.TabIndex = 24;
+            this.emailLabel.Text = "Email:";
+            // 
+            // nameField
+            // 
+            this.nameField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nameField.Location = new System.Drawing.Point(100, 231);
+            this.nameField.Name = "nameField";
+            this.nameField.Size = new System.Drawing.Size(189, 22);
+            this.nameField.TabIndex = 5;
+            // 
+            // emailField
+            // 
+            this.emailField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.emailField.Location = new System.Drawing.Point(100, 198);
+            this.emailField.Name = "emailField";
+            this.emailField.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.emailField.Size = new System.Drawing.Size(189, 22);
+            this.emailField.TabIndex = 4;
+            // 
+            // surnameLabel
+            // 
+            this.surnameLabel.AutoSize = true;
+            this.surnameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.surnameLabel.Location = new System.Drawing.Point(12, 270);
+            this.surnameLabel.Name = "surnameLabel";
+            this.surnameLabel.Size = new System.Drawing.Size(73, 16);
+            this.surnameLabel.TabIndex = 26;
+            this.surnameLabel.Text = "Surname:";
+            // 
+            // surnameField
+            // 
+            this.surnameField.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.surnameField.Location = new System.Drawing.Point(100, 264);
+            this.surnameField.Name = "surnameField";
+            this.surnameField.Size = new System.Drawing.Size(189, 22);
+            this.surnameField.TabIndex = 6;
             // 
             // Welcome
             // 
@@ -184,6 +245,12 @@ namespace APL_FE.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(69)))), ((int)(((byte)(76)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.surnameLabel);
+            this.Controls.Add(this.surnameField);
+            this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this.emailLabel);
+            this.Controls.Add(this.nameField);
+            this.Controls.Add(this.emailField);
             this.Controls.Add(this.checkLoginShowPassword);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.passwordLabel);
@@ -220,6 +287,12 @@ namespace APL_FE.Forms
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.CheckBox checkLoginShowPassword;
+        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.Label emailLabel;
+        private System.Windows.Forms.TextBox nameField;
+        private System.Windows.Forms.TextBox emailField;
+        private System.Windows.Forms.Label surnameLabel;
+        private System.Windows.Forms.TextBox surnameField;
     }
 }
 

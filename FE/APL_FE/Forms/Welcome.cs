@@ -52,14 +52,17 @@ namespace APL_FE.Forms
 
         private void SignupButton_Click(object sender, EventArgs e)
         {
-            string loginUser = usernameField.Text;
+            string usernameUser = usernameField.Text;
             string passwordUser = passwordField.Text;
+            string emailUser = emailField.Text;
+            string nameUser = nameField.Text;
+            string surnameUser = surnameField.Text;
 
-            if (string.IsNullOrEmpty(loginUser) || string.IsNullOrEmpty(passwordUser))
-                MessageBox.Show("Please check the Username and Password fields");
+            if (string.IsNullOrEmpty(usernameUser) || string.IsNullOrEmpty(passwordUser) || string.IsNullOrEmpty(emailUser) || string.IsNullOrEmpty(nameUser) || string.IsNullOrEmpty(surnameUser))
+                MessageBox.Show("Please check that all fields are filled on the Sign up form");
             else
             {
-                var user = new User { Username = loginUser, Password = passwordUser };
+                var user = new User { Username = usernameUser, Password = passwordUser, Name = nameUser, Email = emailUser, Surname = surnameUser };
                 if (_restClientBE.InsertNewUser(user))
                 {
                     UserInfo.loggedUser = user;
@@ -68,7 +71,7 @@ namespace APL_FE.Forms
                     this.Hide();
                     dashboard.Show();
 
-                    MessageBox.Show(string.Format("Welcome {0}", loginUser));
+                    MessageBox.Show(string.Format("Welcome {0}", usernameUser));
                 }
                 else
                     MessageBox.Show("Retry please");
