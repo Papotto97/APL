@@ -61,7 +61,7 @@ namespace APL_FE.Forms
             this.signin.TabIndex = 4;
             this.signin.Text = "Sign in";
             this.signin.UseVisualStyleBackColor = false;
-            this.signin.Click += new System.EventHandler(this.signinButton_Click);
+            this.signin.Click += new System.EventHandler(this.SigninButton_Click);
             // 
             // signup
             // 
@@ -80,6 +80,7 @@ namespace APL_FE.Forms
             this.signup.TabIndex = 5;
             this.signup.Text = "Sign up";
             this.signup.UseVisualStyleBackColor = false;
+            this.signup.Click += new System.EventHandler(this.SignupButton_Click);
             // 
             // label1
             // 
@@ -90,7 +91,7 @@ namespace APL_FE.Forms
             this.label1.Size = new System.Drawing.Size(119, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "Papotto Placido";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // label2
             // 
@@ -101,7 +102,7 @@ namespace APL_FE.Forms
             this.label2.Size = new System.Drawing.Size(98, 16);
             this.label2.TabIndex = 15;
             this.label2.Text = "Restivo Luca";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Click += new System.EventHandler(this.Label2_Click);
             // 
             // label3
             // 
@@ -112,7 +113,7 @@ namespace APL_FE.Forms
             this.label3.Size = new System.Drawing.Size(123, 16);
             this.label3.TabIndex = 15;
             this.label3.Text = "Russo Salvatore";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.label3.Click += new System.EventHandler(this.Label3_Click);
             // 
             // usernameField
             // 
@@ -174,7 +175,7 @@ namespace APL_FE.Forms
             this.checkLoginShowPassword.TabIndex = 3;
             this.checkLoginShowPassword.Text = "Show";
             this.checkLoginShowPassword.UseVisualStyleBackColor = true;
-            this.checkLoginShowPassword.CheckedChanged += new System.EventHandler(this.checkLoginShowPassword_CheckedChanged);
+            this.checkLoginShowPassword.CheckedChanged += new System.EventHandler(this.CheckLoginShowPassword_CheckedChanged);
             // 
             // Welcome
             // 

@@ -15,6 +15,7 @@ namespace APL_FE.Forms.Inner
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
+            //Riduzione sfarfallio utilizzando un doppio buffer per ridisegnare il form
             this.DoubleBuffered = true;
 
             _RrestClient = new RModuleRestClient();
@@ -34,6 +35,11 @@ namespace APL_FE.Forms.Inner
             pictureBoxPlot2.Image = plot2;
             pictureBoxPlot2.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBoxPlot2.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            if (plot1 == null || plot2 == null)
+                errorLabel.Show();
+            else
+                errorLabel.Hide();
         }
 
         private Bitmap LoadPlot(string plot)

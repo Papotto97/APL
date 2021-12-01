@@ -115,12 +115,14 @@ func handleCreateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
-	id, err := services.CreateUser(&user)
-	if len(err) == 0 {
-		c.JSON(http.StatusInternalServerError, gin.H{"msg": err})
-		return
+	response := services.CreateUser(&user)
+	if response.Status == 500 {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": response.ErrorMessage})
+	} else if response.Status == 200 {
+		c.JSON(http.StatusOK, user)
+	} else if response.Status == 400 {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": response.ErrorMessage})
 	}
-	c.JSON(http.StatusOK, gin.H{"id": id, "msg": err})
 
 }
 
@@ -137,7 +139,7 @@ func handleAddFavourites(c *gin.Context) {
 	if response.Status == 500 {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": response.ErrorMessage})
 	} else if response.Status == 200 {
-		c.JSON(http.StatusOK, gin.H{"msg": response.ErrorMessage})
+		c.JSON(http.StatusOK, favourite)
 	} else if response.Status == 400 {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": response.ErrorMessage})
 	}
@@ -157,7 +159,7 @@ func handleGetAllFavouritesByUsername(c *gin.Context) {
 	favourites := services.FindAllFavouritesByUsername(username)
 
 	if len(favourites) == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"msg": "Favourites not found"})
+		c.JSON(http.StatusNoContent, gin.H{"msg": "Favourites not found"})
 		return
 	}
 	c.JSON(http.StatusOK, favourites)
@@ -248,7 +250,7 @@ func main() {
 	r.PUT("/user/", handleCreateUser)
 	r.GET("/user/:username", handleGetUserByUsername)
 	r.GET("/user/:username/:password", handleGetUserByUsernameAndPassword)
-	r.GET("/users/email/:email", handleGetUserByEmail)
+	r.GET("/user/email/:email", handleGetUserByEmail)
 	r.GET("/users/all", handleGetAllUsers)
 	//favourites routes
 	r.PUT("/favourite/", handleAddFavourites)

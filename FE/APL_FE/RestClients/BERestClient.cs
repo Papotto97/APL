@@ -81,7 +81,7 @@ namespace APL_FE.RestClients
             json = _webClient.DownloadString(_url);
 
             if (string.IsNullOrEmpty(json))
-                throw new Exception("Generic error calling API");
+                return new List<Favourites>();
 
             //var res = JsonConvert.DeserializeObject<FavouriteMoviesReturn>(json);
             var res = JsonConvert.DeserializeObject<List<Favourites>>(json);
@@ -156,6 +156,28 @@ namespace APL_FE.RestClients
         #endregion
 
         #region User API
+        public bool InsertNewUser(User user)
+        {
+            _url = $"{Properties.Settings.Default.BE_URI}/{BEAPIEnum.user}";
+
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bf.Serialize(ms, user);
+
+                var payload = ms.ToArray();
+
+                //_webClient.UploadData(_url, payload);
+                _webClient.UploadString(_url, WebRequestMethods.Http.Put, JsonConvert.SerializeObject(user));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
         public User GetUserByUsernameAndPassword(string username, string password)
         {
             try

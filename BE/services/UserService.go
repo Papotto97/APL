@@ -8,11 +8,10 @@ import (
 	"unictapl/models"
 
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func CreateUser(user *models.User) (primitive.ObjectID, string) {
-	var s models.User
+func CreateUser(user *models.User) models.ResponseDTO {
+	// var s models.User
 	var r models.User
 
 	client, ctx, cancel := config.GetConnection()
@@ -22,24 +21,26 @@ func CreateUser(user *models.User) (primitive.ObjectID, string) {
 		user.Username = RandomUsername(user.Email)
 	}
 
-	res := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"email", user.Email}})
-	res.Decode(&s)
-	if user.Email == s.Email {
-		return primitive.ObjectID{}, "Already on DB"
-	}
+	// res := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"email", user.Email}})
+	// res.Decode(&s)
+	// if user.Email == s.Email {
+	// 	return models.ResponseDTO{"Email already used", 400}
+	// }
 
 	ris := client.Database("APL").Collection("Users").FindOne(ctx, bson.D{{"username", user.Username}})
 	ris.Decode(&r)
 	if user.Username == r.Username {
-		return primitive.ObjectID{}, "Username already used"
-	}
-	result, err := client.Database("APL").Collection("Users").InsertOne(ctx, user)
-	if err != nil {
-		log.Printf("Could not create Movie: %v", err)
-		return result.InsertedID.(primitive.ObjectID), "Could not create User"
+		return models.ResponseDTO{"Username already used", 400}
 	}
 
-	return result.InsertedID.(primitive.ObjectID), "User correctly added"
+	_, err := client.Database("APL").Collection("Users").InsertOne(ctx, user)
+	if err != nil {
+		log.Printf("Could not create User: %v", err)
+		return models.ResponseDTO{"Could not create User", 500}
+		// return result.InsertedID.(primitive.ObjectID), "Could not create User"
+	}
+	return models.ResponseDTO{"User correctly added", 200}
+	// return result.InsertedID.(primitive.ObjectID), "User correctly added"
 
 }
 func FindUserByUsername(username string) (user models.User) {

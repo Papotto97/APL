@@ -35,6 +35,7 @@ namespace APL_FE.Forms.Inner
             this.refreshDashButton = new System.Windows.Forms.Button();
             this.pictureBoxPlot1 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPlot2 = new System.Windows.Forms.PictureBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlot1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlot2)).BeginInit();
             this.SuspendLayout();
@@ -73,12 +74,23 @@ namespace APL_FE.Forms.Inner
             this.pictureBoxPlot2.TabIndex = 51;
             this.pictureBoxPlot2.TabStop = false;
             // 
+            // errorLabel
+            // 
+            this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.ForeColor = System.Drawing.Color.Black;
+            this.errorLabel.Location = new System.Drawing.Point(17, 106);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(166, 71);
+            this.errorLabel.TabIndex = 53;
+            this.errorLabel.Text = "Cannot retrieve graphics from R module. Check that the server is reachable.";
+            // 
             // DashboardPlotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Tomato;
             this.ClientSize = new System.Drawing.Size(916, 265);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.pictureBoxPlot2);
             this.Controls.Add(this.pictureBoxPlot1);
             this.Controls.Add(this.refreshDashButton);
@@ -99,6 +111,7 @@ namespace APL_FE.Forms.Inner
         private System.Windows.Forms.Button refreshDashButton;
         private System.Windows.Forms.PictureBox pictureBoxPlot1;
         private System.Windows.Forms.PictureBox pictureBoxPlot2;
+        private System.Windows.Forms.Label errorLabel;
     }
 }
 
