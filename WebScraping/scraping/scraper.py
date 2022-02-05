@@ -78,40 +78,6 @@ def movie_scraper():
             movie_list.append(movie)
             print('')
         
-        '''
-        rows = soup.find_all('div', class_ = 'lister-item mode-simple')
-        print('Found', len(rows), 'rows')
-        for row in rows:
-            title_tag = row.find('span', class_='lister-item-header').find('a', href=True)
-            title = title_tag.text
-            rating = row.find('div', class_ = 'col-imdb-rating').find('strong').text
-            date = row.find('span', class_='lister-item-header').find('span', class_='lister-item-year text-muted unbold').text
-            # For each movie in the list we need to open the page for collecting more details
-            link = title_tag['href']
-            movie_url = base_path + link
-            print('Requesting: {} ...'.format(movie_url))
-            movie_page = requests.get(movie_url, headers = headers)
-            count += 1
-            if movie_page.status_code != 200:
-                logging.warning('Request: {}; Status code: {}'.format(requests, movie_page.status_code))
-                break
-
-            movie_soup = BeautifulSoup(movie_page.text, 'html.parser')
-
-            imdb_id = movie_soup.find("meta", property="imdb:pageConst").attrs.get("content")
-            print(imdb_id)
-            # imdb_id = meta_tag["content"]        
-            summary = movie_soup.find('span', class_='GenresAndPlot__TextContainerBreakpointXL-cum89p-2 gCtawA').text
-
-            genres = []
-            genres_div = movie_soup.find('div', class_='ipc-chip-list GenresAndPlot__GenresChipList-cum89p-4 gtBDBL')
-            if genres_div:
-                for genre in genres_div.find_all('a'):
-                    genres.append(genre.text)
-            
-            movie = Movie(imdb_id, title, clean_string(rating), clean_year(date), summary, genres)   
-            movie_list.append(movie)
-            '''
 
     print("Total requests: {}; Elapsed time: {}s".format(count, round(elapsed_time, 2)))
     # Returning the dictionary for the defined attributes whit list comprehension
